@@ -8,15 +8,31 @@
 %except:
 	<title>Satzgenerator</title>
 %end
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Der beste deutsche Satzgenerator im Internet. Erzeugt zufällige Sätze, die zum Teil lustig sind.">
     <meta name="keywords" content="Satz generieren, Sätze, Fakten, Satzgenerator, deutsch, Open Source, Python, absurd, lustig, bewerten, download" />
     <meta name="author" content="davidak">
     <meta name="robots" content="index,follow">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <style>
-      body { padding-top: 60px; /* 60px to make the container go all the way
-      to the bottom of the topbar */ }
+      body {
+      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      background-image: url(http://images.apple.com/euro/ipod/images/gradient_texture20100901.jpg);
+      background-repeat:repeat-x; background-color: #F5F6F7;
+      }
+      #content { margin-top: 100px; }
+      #permalink, #warnung { display:none }
+
+      /* Responsive */
+      .progress {max-width:344px;}
+      .input-block-level {max-width:344px;}
+      /* Landscape phones and down */
+      @media (max-width: 480px) {
+      .progress {max-width:273px;}
+      .input-block-level {max-width:273px;}
+      #content { margin-top: 0px; }
+      .btn-toolbar { margin-top: 20px; }
+      }
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -30,39 +46,45 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-    <style>
-      body { background-image: url(http://images.apple.com/euro/ipod/images/gradient_texture20100901.jpg);
-      background-repeat:repeat-x; background-color: #F5F6F7; } #content { margin-top: 100px; } #permalink, #warnung { display:none }
-    </style>
+
   </head>
-  
   <body>
-    <div class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="http://satzgenerator.net/">Satzgenerator</a>
-          <ul class="nav">
-            <li><a href="/beste-bewertung">Beste Bewertung</a></li>
-            <li><a href="/schlechteste-bewertung">Schlechte Bewertung</a></li>
-            <li><a href="/meiste-bewertungen">Meiste Bewertungen</a></li>
-            <li><a href="/neuste-saetze">Neuste Sätze</a></li>
-            <li><a href="http://davidak.de/impressum">Impressum</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+
+<!-- Menü -->
+<div class="navbar navbar-fixed-top navbar-inverse">
+<div class="navbar-inner">
+<div class="container-fluid">
+
+<a class="brand" href="/">Satzgenerator</a>
+
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+ <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+</a>
+
+<div class="nav-collapse collapse">
+
+<ul class="nav">
+<li><a href="/beste-bewertung">Beste Bewertung</a></li>
+<li><a href="/schlechteste-bewertung">Schlechte Bewertung</a></li>
+<li><a href="/meiste-bewertungen">Meiste Bewertungen</a></li>
+<li><a href="/neuste-saetze">Neuste Sätze</a></li>
+<li><a href="http://davidak.de/impressum">Impressum</a></li>
+</ul>
+
+</div><!-- /.nav-collapse -->
+</div><!-- /.container -->
+</div><!-- /.navbar-inner -->
+</div><!-- /.navbar -->
     
     <div id="content" class="container-fluid" align="center">
       <h3>{{get('satz', 'Fehler beim generieren des Satzes.')}}</h3>
-    </div>
-           
-      <div class="row-fluid"><!-- Interface -->
-      <div class="span4 offset4"><!-- mittig -->
       
-      <form action="http://satzgenerator.net/" method="POST">
+      <form action="/" method="POST">
       <input name='satz' type='hidden' value='{{get('satz', '')}}'>
       <div class="btn-toolbar" align="center">
-      <button type="submit" name="pro" value='1' class="btn btn-success"><i class="icon-thumbs-up icon-white"></i> Gefällt mir</button> <!--disabled-->
+      <button type="submit" name="pro" value='1' class="btn btn-success"><i class="icon-thumbs-up icon-white"></i><span class="hidden-phone"> Gefällt mir</span></button> <!--disabled-->
       <button type="submit" name="contra" value='1' class="btn btn-danger"><i class="icon-thumbs-down icon-white"></i></button>
 %try:
 	%satz_id
@@ -70,7 +92,7 @@
 %except:
 	<button type="submit" name="permalink" value='1' class="btn btn-primary">Teilen</button>
 %end
-      <a class="btn btn-inverse" href="http://satzgenerator.net/{{get('randb_satz', '')}}"><i class="icon-refresh icon-white"></i> Neuer Satz</a>
+      <a class="btn btn-inverse" href="/{{get('randb_satz', '')}}"><i class="icon-refresh icon-white"></i> Neuer Satz</a>
       </div>
       </form>
 
@@ -84,7 +106,7 @@
 %	pos_proz = float(pos)/ges * 100
 %	pos_proz = int(pos_proz)
 %	neg_proz = 100-pos_proz
-	<div class="progress">
+	<div class="progress" style="width:344px;">
 	<div class="bar bar-success" style="width: {{str(pos_proz)}}%;">{{str(pos)}}</div>
 	<div class="bar bar-danger" style="width: {{str(neg_proz)}}%;">{{str(neg)}}</div>
 	</div>
@@ -93,9 +115,9 @@
 %#	print("Fehler: Keine Bewertungsdaten übergeben.")
 %end
 
-     <input class="input-block-level" id="permalink" type="text" value="http://satzgenerator.net/{{get('satz_id', 'satz_id')}}">
-     
-     </div></div>
+    <input class="input-block-level" id="permalink" type="text" value="http://satzgenerator.net/{{get('satz_id', 'satz_id')}}">
+
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="assets/js/bootstrap.js"></script>

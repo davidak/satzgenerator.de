@@ -31,21 +31,32 @@
     </style>
   </head>
   
-  <body>
-    <div class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="http://satzgenerator.net/">Satzgenerator</a>
-          <ul class="nav">
-            <li><a href="/beste-bewertung">Beste Bewertung</a></li>
-            <li><a href="/schlechteste-bewertung">Schlechte Bewertung</a></li>
-            <li><a href="/meiste-bewertungen">Meiste Bewertungen</a></li>
-            <li><a href="/neuste-saetze">Neuste Sätze</a></li>
-            <li><a href="http://davidak.de/impressum">Impressum</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+<div class="navbar navbar-fixed-top navbar-inverse">
+<div class="navbar-inner">
+<div class="container-fluid">
+
+<a class="brand" href="http://satzgenerator.net/">Satzgenerator</a>
+
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+ <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+</a>
+
+<div class="nav-collapse collapse">
+
+<ul class="nav">
+<li><a href="/beste-bewertung">Beste Bewertung</a></li>
+<li><a href="/schlechteste-bewertung">Schlechte Bewertung</a></li>
+<li><a href="/meiste-bewertungen">Meiste Bewertungen</a></li>
+<li><a href="/neuste-saetze">Neuste Sätze</a></li>
+<li><a href="http://davidak.de/impressum">Impressum</a></li>
+</ul>
+
+</div><!-- /.nav-collapse -->
+</div><!-- /.container -->
+</div><!-- /.navbar-inner -->
+</div><!-- /.navbar -->
     
     <div id="content" class="container-fluid">
     
