@@ -225,4 +225,4 @@ def server_static(filepath):
 def error404(error):
     return '<h1>Diese Seite existiert nicht.</h1>'
 
-run(reloader=True, host='10.0.0.11', port=8080)
+#run(reloader=True, host='10.0.0.11', port=8080)

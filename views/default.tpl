@@ -20,8 +20,9 @@
       background-image: url(http://images.apple.com/euro/ipod/images/gradient_texture20100901.jpg);
       background-repeat:repeat-x; background-color: #F5F6F7;
       }
-      #content { margin-top: 100px; }
+      #content { text-align: center; margin-top: 100px; }
       #permalink, #warnung { display:none }
+      .btn-toolbar { margin-top: 40px; }
 
       /* Responsive */
       .progress {max-width:344px;}
@@ -78,12 +79,12 @@
 </div><!-- /.navbar-inner -->
 </div><!-- /.navbar -->
     
-    <div id="content" class="container-fluid" align="center">
+    <div id="content" class="container-fluid">
       <h3>{{get('satz', 'Fehler beim generieren des Satzes.')}}</h3>
       
       <form action="/" method="POST">
       <input name='satz' type='hidden' value='{{get('satz', '')}}'>
-      <div class="btn-toolbar" align="center">
+      <div class="btn-toolbar">
       <button type="submit" name="pro" value='1' class="btn btn-success"><i class="icon-thumbs-up icon-white"></i><span class="hidden-phone"> Gefällt mir</span></button> <!--disabled-->
       <button type="submit" name="contra" value='1' class="btn btn-danger"><i class="icon-thumbs-down icon-white"></i></button>
 %try:
