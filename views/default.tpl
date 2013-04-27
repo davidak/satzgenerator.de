@@ -21,16 +21,16 @@
       background-repeat:repeat-x; background-color: #F5F6F7;
       }
       #content { text-align: center; margin-top: 100px; }
-      #permalink, #warnung { display:none }
+      #permalink, #warnung { display:none; }
       .btn-toolbar { margin-top: 40px; }
 
       /* Responsive */
-      .progress {max-width:344px;}
-      .input-block-level {max-width:344px;}
+      .progress { max-width:344px; margin:auto; margin-bottom:20px; }
+      .input-block-level { max-width:344px; margin:auto; }
       /* Landscape phones and down */
       @media (max-width: 480px) {
-      .progress {max-width:273px;}
-      .input-block-level {max-width:273px;}
+      .progress { max-width:273px; }
+      .input-block-level { max-width:273px; }
       #content { margin-top: 0px; }
       .btn-toolbar { margin-top: 20px; }
       }
@@ -107,7 +107,7 @@
 %	pos_proz = float(pos)/ges * 100
 %	pos_proz = int(pos_proz)
 %	neg_proz = 100-pos_proz
-	<div class="progress" style="width:344px;">
+	<div class="progress">
 	<div class="bar bar-success" style="width: {{str(pos_proz)}}%;">{{str(pos)}}</div>
 	<div class="bar bar-danger" style="width: {{str(neg_proz)}}%;">{{str(neg)}}</div>
 	</div>
