@@ -25,12 +25,14 @@
       .btn-toolbar { margin-top: 40px; }
 
       /* Responsive */
-      .progress { max-width:344px; margin:auto; margin-bottom:20px; }
-      .input-block-level { max-width:344px; margin:auto; }
+      .progress { max-width:344px; margin-left:auto; margin-right:auto; }
+      .input-block-level { max-width:344px; margin-left:auto; margin-right:auto; }
+      #warnung { max-width:291px; margin-left:auto; margin-right:auto; }
       /* Landscape phones and down */
       @media (max-width: 480px) {
       .progress { max-width:273px; }
       .input-block-level { max-width:273px; }
+      #warnung { max-width:220px; }
       #content { margin-top: 0px; }
       .btn-toolbar { margin-top: 20px; }
       }
