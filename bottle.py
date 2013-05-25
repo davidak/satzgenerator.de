@@ -16,7 +16,7 @@ License: MIT (see LICENSE for details)
 from __future__ import with_statement
 
 __author__ = 'Marcel Hellkamp'
-__version__ = '0.12-dev'
+__version__ = '0.11.6'
 __license__ = 'MIT'
 
 # The gevent server adapter needs to patch some modules before they are imported
@@ -561,14 +561,15 @@ class Bottle(object):
         def mountpoint_wrapper():
             try:
                 request.path_shift(path_depth)
-                rs = BaseResponse([], 200)
-                def start_response(status, header):
+                rs = HTTPResponse([])
+                def start_response(status, headerlist):
                     rs.status = status
-                    for name, value in header: rs.add_header(name, value)
+                    for name, value in headerlist: rs.add_header(name, value)
                     return rs.body.append
                 body = app(request.environ, start_response)
-                body = itertools.chain(rs.body, body)
-                return HTTPResponse(body, rs.status_code, **rs.headers)
+                if body and rs.body: body = itertools.chain(rs.body, body)
+                rs.body = body or rs.body
+                return rs
             finally:
                 request.path_shift(-path_depth)
 
@@ -817,10 +818,10 @@ class Bottle(object):
 
         # Handle Iterables. We peek into them to detect their inner type.
         try:
-            iout = iter(out)
-            first = next(iout)
+            out = iter(out)
+            first = next(out)
             while not first:
-                first = next(iout)
+                first = next(out)
         except StopIteration:
             return self._cast('')
         except HTTPResponse:
@@ -834,18 +835,13 @@ class Bottle(object):
         # These are the inner types allowed in iterator or generator objects.
         if isinstance(first, HTTPResponse):
             return self._cast(first)
-        elif isinstance(first, bytes):
-            new_iter = itertools.chain([first], iout)
-        elif isinstance(first, unicode):
-            encoder = lambda x: x.encode(response.charset)
-            new_iter = imap(encoder, itertools.chain([first], iout))
-        else:
-            msg = 'Unsupported response type: %s' % type(first)
-            return self._cast(HTTPError(500, msg))
-        if hasattr(out, 'close'):
-            new_iter = _iterchain(new_iter)
-            new_iter.close = out.close
-        return new_iter
+        if isinstance(first, bytes):
+            return itertools.chain([first], out)
+        if isinstance(first, unicode):
+            return imap(lambda x: x.encode(response.charset),
+                                  itertools.chain([first], out))
+        return self._cast(HTTPError(500, 'Unsupported response type: %s'\
+                                         % type(first)))
 
     def wsgi(self, environ, start_response):
         """ The bottle WSGI-interface. """
@@ -1290,7 +1286,7 @@ class BaseResponse(object):
 
     def __init__(self, body='', status=None, **headers):
         self._cookies = None
-        self._headers = {'Content-Type': [self.default_content_type]}
+        self._headers = {}
         self.body = body
         self.status = status or self.default_status
         if headers:
@@ -1384,7 +1380,9 @@ class BaseResponse(object):
     def headerlist(self):
         ''' WSGI conform list of (header, value) tuples. '''
         out = []
-        headers = self._headers.items()
+        headers = list(self._headers.items())
+        if 'Content-Type' not in self._headers:
+            headers.append(('Content-Type', [self.default_content_type]))
         if self._status_code in self.bad_headers:
             bad_headers = self.bad_headers[self._status_code]
             headers = [h for h in headers if h[0] not in bad_headers]
@@ -1943,11 +1941,6 @@ class WSGIFileWrapper(object):
             yield part
 
 
-class _iterchain(itertools.chain):
-    ''' This only exists to be able to attach a .close method to iterators that
-        do not support attribute assignment (most of itertools). '''
-
-
 class ResourceManager(object):
     ''' This class manages a list of search paths and helps to find and open
         application-bound resources (files).
@@ -2054,7 +2047,10 @@ def redirect(url, code=None):
     if code is None:
         code = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
     location = urljoin(request.url, url)
-    raise HTTPResponse("", status=code, Location=location)
+    res = HTTPResponse("", status=code, Location=location)
+    if response._cookies:
+        res._cookies = response._cookies
+    raise res
 
 
 def _file_iter_range(fp, offset, bytes, maxread=1024*1024):
@@ -3144,8 +3140,6 @@ def view(tpl_name, **defaults):
                 tplvars = defaults.copy()
                 tplvars.update(result)
                 return template(tpl_name, **tplvars)
-            elif result is None:
-                return template(tpl_name, defaults)
             return result
         return wrapper
     return decorator
