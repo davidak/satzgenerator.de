@@ -109,7 +109,7 @@ def generator():
 @route('/<uid:re:[a-z]{5}>', method='GET')
 def satz_detailseite(uid):
 	satz = Satz.select().where(Satz.uid == uid).get()
-	return template('default', satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra)
+	return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra)
 
 @route('/<uid:re:[a-z]{5}>', method='POST')
 def satz_bewerten(uid):
@@ -124,12 +124,40 @@ def satz_bewerten(uid):
 		bewertung_loggen(uid)
 		satz = Satz.select().where(Satz.uid == uid).get()
 		return str(satz.pro) + ',' + str(satz.kontra)
-	if req == "permalink":
+	elif req == "permalink":
 		satz_permanent_speichern(uid)
+
+@route('/beste-bewertung')
+def beste_bewertung():
+	anzahl = 50
+	satze = Satz.raw('SELECT * FROM satz WHERE pro >= kontra ORDER BY pro DESC, kontra LIMIT ' + str(anzahl))
+	return template('stats', titel="Die Sätze mit den besten Bewertungen", satze=satze)
+
+@route('/schlechte-bewertung')
+def schlechte_bewertung():
+	anzahl = 50
+	satze = Satz.raw('SELECT * FROM satz WHERE kontra >= pro ORDER BY kontra DESC, pro LIMIT ' + str(anzahl))
+	return template('stats', titel="Die Sätze mit den schlechtesten Bewertungen", satze=satze)
+
+@route('/meiste-bewertung')
+def meiste_bewertung():
+	anzahl = 50
+	satze = Satz.raw('SELECT * FROM satz ORDER BY pro+kontra DESC LIMIT ' + str(anzahl))
+	return template('stats', titel="Die Sätze mit den meisten Bewertungen", satze=satze)
+
+@route('/neue-saetze')
+def neue_saetze():
+	anzahl = 50
+	satze = Satz.raw('SELECT * FROM satz ORDER BY created DESC LIMIT ' + str(anzahl))
+	return template('stats', titel="Die neusten Sätze", satze=satze)
 
 @route('/bootstrap/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, root='./bootstrap/')
+
+@route('/style/<filepath:path>')
+def server_static(filepath):
+    return static_file(filepath, root='./style/')
 
 @error(404)
 def error404(error):
