@@ -3,7 +3,7 @@
 <div class="navbar-inner">
 <div class="container-fluid">
 
-<a class="brand" href="/">Satzgenerator</a>
+<a class="brand" href="/"><h1>Satzgenerator</h1></a>
 
 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
  <span class="icon-bar"></span>

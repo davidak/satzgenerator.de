@@ -1,4 +1,4 @@
-<script src="assets/js/bootstrap.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
 
 <!-- Piwik --> 
 <script type="text/javascript">

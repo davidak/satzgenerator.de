@@ -1,5 +1,17 @@
+@media all {
 body {
-	padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+	padding-top: 40px; /* 60px to make the container go all the way to the bottom of the topbar */
 	background-image: url(/style/hintergrund.jpg);
 	background-repeat:repeat-x; background-color: #F5F6F7;
+}
+.navbar h1 { font-size: 20px; line-height: 0px; }
+h1 { font-size: 36px; }
+h2 { font-size: 31.5px; padding: 20px; }
+h3 { font-size: 17.5px; }
+}
+
+/* all smaller than 980 */
+@media (min-width: 1px) and (max-width: 979px) {
+body { padding-top: 0px; }
+h2 { font-size: 30px; padding: 5px; }
 }

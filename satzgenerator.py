@@ -149,7 +149,7 @@ def meiste_bewertung():
 def neue_saetze():
 	anzahl = 50
 	satze = Satz.raw('SELECT * FROM satz ORDER BY created DESC LIMIT ' + str(anzahl))
-	return template('stats', titel="Die neusten Sätze", satze=satze)
+	return template('neue', titel="Die neusten Sätze", satze=satze)
 
 @route('/bootstrap/<filepath:path>')
 def server_static(filepath):
