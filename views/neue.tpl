@@ -2,7 +2,6 @@
 <html lang="de">
 <head>
 %include head titel='Satzgenerator: ' + titel
-%import re
 </head>
 <body>
 

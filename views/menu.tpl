@@ -1,3 +1,5 @@
+<a id="github-ribbon" href="https://github.com/davidak/pyzufall"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1031;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
 <!-- Menü -->
 <div class="navbar navbar-fixed-top navbar-inverse">
 <div class="navbar-inner">
