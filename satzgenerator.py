@@ -86,6 +86,18 @@ def satz_permanent_speichern(uid):
 	except:
 		print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
+def ist_berechtigt(uid):
+	try:
+		ip = request.get('REMOTE_ADDR')
+		zuletzt_bewertet = Benutzer.select().where((Benutzer.satz_uid == uid) & (Benutzer.ip == ip)).order_by(Benutzer.voted.desc()).limit(1)[0].voted
+		differenz = datetime.now() - zuletzt_bewertet # vergangene Zeit seit der letzten Bewertung des Satzes
+		if (differenz.seconds // 3600) > 24: # länger als 24 Stunden
+			return True
+		else:
+			return False
+	except:
+		return True # wenn kein Eintrag in der Datenbank gefunden (oder irgend ein Fehler mit der Datenbankverbindung)
+
 def temporaere_saetze_loeschen():
 	try:
 		Satz.delete().where(Satz.tmp == True).execute()
@@ -109,23 +121,26 @@ def generator():
 @route('/<uid:re:[a-z]{5}>', method='GET')
 def satz_detailseite(uid):
 	satz = Satz.select().where(Satz.uid == uid).get()
-	return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra)
+	berechtigt = ist_berechtigt(uid)
+	return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra, berechtigt=berechtigt)
 
 @route('/<uid:re:[a-z]{5}>', method='POST')
 def satz_bewerten(uid):
 	req = request.forms.text
-	if req == "pro":
+	if req == "pro" and ist_berechtigt(uid):
 		satz_positiv_bewerten(uid)
 		bewertung_loggen(uid)
 		satz = Satz.select().where(Satz.uid == uid).get()
 		return str(satz.pro) + ',' + str(satz.kontra)
-	elif req == "kontra":
+	elif req == "kontra" and ist_berechtigt(uid):
 		satz_negativ_bewerten(uid)
 		bewertung_loggen(uid)
 		satz = Satz.select().where(Satz.uid == uid).get()
 		return str(satz.pro) + ',' + str(satz.kontra)
 	elif req == "permalink":
 		satz_permanent_speichern(uid)
+	else:
+		return 'nein'
 
 @route('/beste-bewertung')
 def beste_bewertung():

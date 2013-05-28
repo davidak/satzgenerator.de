@@ -21,17 +21,17 @@
 </div>
 </form>
 
-<div class="alert alert-error" id="warnung">
- <a type="button" class="close" href="#" onclick="hide_warning()">&times;</a>
- Du hast diesen Satz heute schon bewertet.
-</div>
-
 <div id="bewertung" class="progress"><!-- Bewertung anzeigen -->
 <div id="positiv_prozent_balken" class="bar bar-success" style="width: 0%;">1</div>
 <div id="negativ_prozent_balken" class="bar bar-danger" style="width: 0%;">1</div>
 </div>
 
-<input class="input-block-level" id="permalink" type="text" value="http://satzgenerator.net/{{get('satz_uid')}}">
+<input class="input-block-level" id="permalink" type="text" value="http://satzgenerator.de/{{get('satz_uid')}}">
+
+<div class="alert alert-error" id="warnung">
+ <a type="button" class="close" href="#" onclick="hide_warning()">&times;</a>
+Du darfst diesen Satz nur einmal in 24 Stunden bewerten.
+</div>
 
 </div> <!-- /content -->
 
@@ -49,16 +49,19 @@ $("#pos, #neg, #per").click(function() {
            url: "#",
            dataType: 'text',
            data : { text: $(this).attr("name") },
-           success: function(data)
-           {
-              if (data)
-              {
-              var vars = data.split(",");
-              bewertung_anzeigen(vars[0], vars[1]);
+           success: function(data) {
+              if (data) {
+                if (data == "nein") {
+                  show_warning();
+                }
+                else {
+                var vars = data.split(",");
+                bewertung_anzeigen(vars[0], vars[1]);
+                bewertung_deaktivieren();
+                }
               }
-           }
-         });
-
+          }
+    });
     event.preventDefault();
 });
 
@@ -89,6 +92,19 @@ function bewertung_anzeigen(positiv, negativ)
     document.getElementById('negativ_prozent_balken').style.width = negativ_prozent + "%";
     document.getElementById('negativ_prozent_balken').innerHTML = negativ;
 }
+
+function bewertung_deaktivieren() {
+  var poss = document.getElementById("pos")
+  poss.className = poss.className + " disabled";
+  poss.setAttribute("disabled", true);
+  var nega = document.getElementById("neg")
+  nega.className = nega.className + " disabled";
+  nega.setAttribute("disabled", true);
+}
+
+%if not berechtigt:
+bewertung_deaktivieren();
+%end
 </script>
 
 %include footer
