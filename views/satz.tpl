@@ -12,6 +12,11 @@
 
 <h1>{{get('satz', 'Fehler beim generieren des Satzes.')}}</h1>
 
+<noscript>
+<h2>Warnung!</h2>
+<p>Bitte aktiviere JavaScript, um Sätze bewerten und teilen zu können.</p>
+</noscript>
+
 <form id="bewerten" action="#" method="POST">
 <div class="btn-toolbar">
 <button id="pos" type="submit" name="pro" class="btn btn-success"><i class="icon-thumbs-up icon-white"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
