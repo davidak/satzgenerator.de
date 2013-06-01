@@ -120,9 +120,13 @@ def generator():
 
 @route('/<uid:re:[a-z]{5}>', method='GET')
 def satz_detailseite(uid):
-	satz = Satz.select().where(Satz.uid == uid).get()
-	berechtigt = ist_berechtigt(uid)
-	return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra, berechtigt=berechtigt)
+	try:
+		satz = Satz.select().where(Satz.uid == uid).get()
+		berechtigt = ist_berechtigt(uid)
+		return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra, berechtigt=berechtigt)
+	except:
+		response.status = 404
+		return template('404', titel="Satzgenerator: Satz nicht gefunden.", text="Es gibt (noch) keinen Satz mit dieser ID.")
 
 @route('/<uid:re:[a-z]{5}>', method='POST')
 def satz_bewerten(uid):
@@ -176,7 +180,7 @@ def server_static(filepath):
 
 @error(404)
 def error404(error):
-    return '<h1>Diese Seite existiert nicht.</h1>'
+    return template('404', titel="Satzgenerator: Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
 
 # allow running from the command line
 if __name__ == '__main__':
