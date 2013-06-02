@@ -58,6 +58,7 @@ $("#pos, #neg, #per").click(function() {
               if (data) {
                 if (data == "nein") {
                   show_warning();
+                  bewertung_deaktivieren();
                 }
                 else {
                 var vars = data.split(",");
@@ -106,10 +107,6 @@ function bewertung_deaktivieren() {
   nega.className = nega.className + " disabled";
   nega.setAttribute("disabled", true);
 }
-
-%if not berechtigt:
-bewertung_deaktivieren();
-%end
 </script>
 
 %include footer
