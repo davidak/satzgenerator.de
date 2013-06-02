@@ -116,21 +116,26 @@ def bewertung_loggen(uid):
 	except:
 		print("Fehler: Bewerung konnte nicht geloggt werden.")
 
-def bewertungen_loeschen():
+def log_aufraeumen():
 	try:
 		gestern = datetime.now() - timedelta(days=1)
 		gestern = gestern.strftime('%Y-%m-%d %H:%M:%S')
 		Benutzer.delete().where(Benutzer.voted < gestern).execute()
 	except:
-		print("Fehler: Veraltete Bewertungen konnten nicht aus der Datenbank gelöscht werden.")
+		print("Fehler: Bewertungslog konnten nicht aufgeräumt werden.")
 
 def cron():
 	temporaere_saetze_loeschen()
-	bewertungen_loeschen()
+	log_aufraeumen()
 
 @route('/')
 def generator():
 	redirect('/' + neuen_satz_generieren())
+
+@route('/zufaelliger-satz')
+def zufaelliger_satz():
+	uid = Satz.select().where(Satz.tmp == False and Satz.pro >= Satz.kontra).order_by(fn.Random()).limit(1).get().uid
+	redirect('/' + uid)
 
 @route('/<uid:re:[a-z]{5}>', method='GET')
 def satz_detailseite(uid):
