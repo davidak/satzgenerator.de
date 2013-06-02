@@ -60,12 +60,10 @@ def neuen_satz_speichern(satz):
 def neuen_satz_generieren():
 	satz = z.satz()
 	try:
-		uid = Satz.select().where(Satz.satz == satz).get().uid # Wenn Satz bereits in DB, gib UID zurück
-		#print('Satz bereits in DB mit UID ' + uid + '!')
+		uid = Satz.get(Satz.satz == satz).uid # Wenn Satz bereits in DB, gib UID zurück
 		return uid
 	except Satz.DoesNotExist: # ansonsten speichern
 		uid = neuen_satz_speichern(satz)
-		#print('Neuen Satz generiert und mit UID ' + uid + ' in DB gespeichert.') # Neue UID
 		return uid
 	except: # andere Fehler
 		print("Fehler beim speichern des Satzes.")
@@ -91,7 +89,7 @@ def satz_permanent_speichern(uid):
 def ist_berechtigt(uid):
 	try:
 		ip = request.get('REMOTE_ADDR')
-		zuletzt_bewertet = Benutzer.select().where((Benutzer.satz_uid == uid) & (Benutzer.ip == ip)).order_by(Benutzer.voted.desc()).limit(1)[0].voted
+		zuletzt_bewertet = Benutzer.get((Benutzer.satz_uid == uid) & (Benutzer.ip == ip)).voted
 		differenz = datetime.now() - zuletzt_bewertet # vergangene Zeit seit der letzten Bewertung des Satzes
 		if differenz.days > 1: # länger als 24 Stunden
 			return True
@@ -140,7 +138,7 @@ def keks_zaehler():
 	if visits >= randb:
 		response.delete_cookie('visits')
 		response.delete_cookie('randb')
-		redirect('/zufaelliger-satz')
+		zufaelliger_satz()
 	else:
 		response.set_cookie('visits', str(visits))
 
@@ -161,7 +159,7 @@ def zufaelliger_satz():
 @route('/<uid:re:[a-z]{5}>', method='GET')
 def satz_detailseite(uid):
 	try:
-		satz = Satz.select().where(Satz.uid == uid).get()
+		satz = Satz.get(Satz.uid == uid)
 		return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra)
 	except:
 		response.status = 404
@@ -173,12 +171,12 @@ def satz_bewerten(uid):
 	if req == "pro" and ist_berechtigt(uid):
 		satz_positiv_bewerten(uid)
 		bewertung_loggen(uid)
-		satz = Satz.select().where(Satz.uid == uid).get()
+		satz = Satz.get(Satz.uid == uid)
 		return str(satz.pro) + ',' + str(satz.kontra)
 	elif req == "kontra" and ist_berechtigt(uid):
 		satz_negativ_bewerten(uid)
 		bewertung_loggen(uid)
-		satz = Satz.select().where(Satz.uid == uid).get()
+		satz = Satz.get(Satz.uid == uid)
 		return str(satz.pro) + ',' + str(satz.kontra)
 	elif req == "permalink":
 		satz_permanent_speichern(uid)
