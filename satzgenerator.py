@@ -128,13 +128,34 @@ def cron():
 	temporaere_saetze_loeschen()
 	log_aufraeumen()
 
+def keks_zaehler():
+	randb = int(request.get_cookie('randb', '0'))
+	visits = int(request.get_cookie('visits', '0'))
+	visits += 1
+
+	if randb == 0: # wenn keks nicht gesetzt, setze mit zufallszahl
+		randb = random.randint(5,15)
+		response.set_cookie('randb', str(randb))
+
+	if visits >= randb:
+		response.delete_cookie('visits')
+		response.delete_cookie('randb')
+		redirect('/zufaelliger-satz')
+	else:
+		response.set_cookie('visits', str(visits))
+
 @route('/')
 def generator():
+	keks_zaehler()
 	redirect('/' + neuen_satz_generieren())
 
 @route('/zufaelliger-satz')
 def zufaelliger_satz():
-	uid = Satz.select().where(Satz.tmp == False and Satz.pro >= Satz.kontra).order_by(fn.Random()).limit(1).get().uid
+	try:
+		uid = Satz.select().where((Satz.tmp == False) & (Satz.pro >= Satz.kontra)).order_by(fn.Random()).limit(1).get().uid
+	except:
+		print("Fehler: Es konnte kein zufälliger Satz aus der Datenbank geladen werden.")
+		uid = ''
 	redirect('/' + uid)
 
 @route('/<uid:re:[a-z]{5}>', method='GET')
