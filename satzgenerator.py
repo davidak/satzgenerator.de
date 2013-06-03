@@ -3,6 +3,7 @@
 
 from bottle import route, template, static_file, error, request, response, redirect, default_app, run, debug
 from peewee import *
+import MySQLdb
 from pyzufall import pyzufall as z
 from datetime import datetime, timedelta
 import random

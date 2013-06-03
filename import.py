@@ -3,6 +3,7 @@
 
 from peewee import *
 from datetime import datetime
+import MySQLdb
 
 mysql = MySQLDatabase('davidak_satzgenerator', user='davidak',passwd='9335be4gnjcvd7hbxp5f')
 sqlite = SqliteDatabase('database.db')
