@@ -4,3 +4,4 @@ cd $DIR
 virtualenv-python3.2 -p /usr/bin/python3 .
 source bin/activate
 pip install -r requirements.txt
+deactivate
