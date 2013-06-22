@@ -19,9 +19,9 @@
 
 <form id="bewerten" action="#" method="POST">
 <div class="btn-toolbar">
-<button id="pos" type="submit" name="pro" class="btn btn-success"><i class="icon-thumbs-up icon-white"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
-<button id="neg" type="submit" name="kontra" class="btn btn-danger"><i class="icon-thumbs-down icon-white"></i></button>
-<button id="per" type="submit" name="permalink" onclick="show_permalink()" class="btn btn-primary">Teilen</button>
+<button id="pos" type="button" name="pro" class="btn btn-success"><i class="icon-thumbs-up icon-white"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
+<button id="neg" type="button" name="kontra" class="btn btn-danger"><i class="icon-thumbs-down icon-white"></i></button>
+<button id="per" type="button" name="permalink" onclick="show_permalink()" class="btn btn-primary">Teilen</button>
 <a class="btn btn-inverse" href="/"><i class="icon-refresh icon-white"></i> Neuer Satz</a>
 </div>
 </form>
