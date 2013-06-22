@@ -14,13 +14,12 @@ random.seed() # Zufallsgenerator initialisieren
 
 debug = 1 # 0, 1
 
-def jetzt():
-	return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
+# Verbindung zur MySQL-Datenbank herstellen
 engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
 
 metadata = MetaData()
 
+# Datenbank-Schema
 db_satz = Table('satz', metadata,
 	Column('uid', String(5), primary_key=True),
 	Column('created', DateTime, nullable=False),
@@ -38,7 +37,11 @@ db_benutzer = Table('benutzer', metadata,
 	Column('voted', DateTime, nullable=False)
 )
 
-metadata.create_all(engine) # Tabellen erzeugen, falls sie nicht existieren
+# Tabellen erzeugen, falls sie nicht existieren
+metadata.create_all(engine)
+
+def jetzt():
+	return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 def neuen_satz_speichern(satz):
 	for x in range(10): # 10 Versuche, den Satz zu speichern
@@ -80,6 +83,13 @@ def satz_permanent_speichern(uid):
 	except:
 		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
+def bewertung_loggen(uid):
+	try:
+		ip = request.get('REMOTE_ADDR')
+		engine.execute(db_benutzer.insert(), uid=uid, ip=ip, voted=jetzt())
+	except:
+		if debug: print("Fehler: Bewertung konnte nicht geloggt werden.")
+
 def ist_berechtigt(uid):
 	try:
 		ip = request.get('REMOTE_ADDR')
@@ -98,13 +108,6 @@ def temporaere_saetze_loeschen():
 		engine.execute(db_satz.delete().where(db_satz.c.tmp == True))
 	except:
 		if debug: print('Fehler: Die temporären Sätze konnten nicht aus der Datenbank gelöscht werden.')
-
-def bewertung_loggen(uid):
-	try:
-		ip = request.get('REMOTE_ADDR')
-		engine.execute(db_benutzer.insert(), uid=uid, ip=ip, voted=jetzt())
-	except:
-		if debug: print("Fehler: Bewertung konnte nicht geloggt werden.")
 
 def log_aufraeumen():
 	try:
