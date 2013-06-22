@@ -213,4 +213,4 @@ def error404(error):
 
 # allow running from the command line
 if __name__ == '__main__':
-	run(reloader=True, debug=True, host='10.0.0.11', port=8080)
+	run(reloader=True, debug=True, host='satzgenerator.de', port=80)
