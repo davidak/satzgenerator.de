@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, template, static_file, error, request, response, redirect, default_app, run, debug
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, Boolean, ForeignKey, select
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, Boolean, ForeignKey, select, func
 from pyzufall import pyzufall as z
 from datetime import datetime, timedelta
 import random
@@ -23,8 +23,8 @@ metadata = MetaData()
 
 db_satz = Table('satz', metadata,
 	Column('uid', String(5), primary_key=True),
-	Column('created', DateTime, default=jetzt(), nullable=False),
-	Column('updated', DateTime, onupdate=jetzt()),
+	Column('created', DateTime, nullable=False),
+	Column('updated', DateTime),
 	Column('pro', Integer, default=0),
 	Column('kontra', Integer, default=0),
 	Column('tmp', Boolean, default=1),
@@ -35,7 +35,7 @@ db_benutzer = Table('benutzer', metadata,
 	Column('id', Integer, primary_key=True),
 	Column('uid', String(5), ForeignKey("satz.uid"), nullable=False),
 	Column('ip', String(16), nullable=False),
-	Column('voted', DateTime, default=jetzt(), nullable=False)
+	Column('voted', DateTime, nullable=False)
 )
 
 metadata.create_all(engine) # Tabellen erzeugen, falls sie nicht existieren
@@ -44,7 +44,7 @@ def neuen_satz_speichern(satz):
 	for x in range(10): # 10 Versuche, den Satz zu speichern
 		try:
 			uid = ''.join(random.choice('abcdefghiklmnopqrstuvwxyz') for x in range(5))
-			engine.execute(db_satz.insert(), uid=uid, satz=satz)
+			engine.execute(db_satz.insert(), uid=uid, created=jetzt(), satz=satz)
 			return uid
 		except:
 			if debug: print('Fehler: Satz konnte nicht in die Datenbank gespeichert werden.')
@@ -64,19 +64,19 @@ def neuen_satz_generieren():
 
 def satz_positiv_bewerten(uid):
 	try:
-		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(pro = db_satz.c.pro + 1, tmp = False))
+		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(pro = db_satz.c.pro + 1, tmp = False, updated=jetzt()))
 	except:
 		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
 def satz_negativ_bewerten(uid):
 	try:
-		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(kontra = db_satz.c.kontra + 1, tmp = False))
+		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(kontra = db_satz.c.kontra + 1, tmp = False, updated=jetzt()))
 	except:
 		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
 def satz_permanent_speichern(uid):
 	try:
-		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(tmp = False))
+		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(tmp = False, updated=jetzt()))
 	except:
 		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
@@ -102,9 +102,9 @@ def temporaere_saetze_loeschen():
 def bewertung_loggen(uid):
 	try:
 		ip = request.get('REMOTE_ADDR')
-		engine.execute(db_benutzer.insert(), uid=uid, ip=ip)
+		engine.execute(db_benutzer.insert(), uid=uid, ip=ip, voted=jetzt())
 	except:
-		if debug: print("Fehler: Bewerung konnte nicht geloggt werden.")
+		if debug: print("Fehler: Bewertung konnte nicht geloggt werden.")
 
 def log_aufraeumen():
 	try:
@@ -142,7 +142,8 @@ def generator():
 @route('/zufaelliger-satz')
 def zufaelliger_satz():
 	try:
-		uid = Satz.select().where((Satz.tmp == False) & (Satz.pro >= Satz.kontra)).order_by(fn.Random()).limit(1).get().uid
+		satz = engine.execute(db_satz.select().where((db_satz.c.tmp == False) & (db_satz.c.pro >= db_satz.c.kontra)).order_by(func.rand()).limit(1)).fetchone()
+		uid = satz.uid
 	except:
 		print("Fehler: Es konnte kein zufälliger Satz aus der Datenbank geladen werden.")
 		uid = ''
@@ -151,7 +152,7 @@ def zufaelliger_satz():
 @route('/<uid:re:[a-z]{5}>', method='GET')
 def satz_detailseite(uid):
 	try:
-		satz = Satz.get(Satz.uid == uid)
+		satz = engine.execute(db_satz.select().where(db_satz.c.uid == uid)).fetchone()
 		return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra)
 	except:
 		response.status = 404
@@ -163,12 +164,12 @@ def satz_bewerten(uid):
 	if req == "pro" and ist_berechtigt(uid):
 		satz_positiv_bewerten(uid)
 		bewertung_loggen(uid)
-		satz = Satz.get(Satz.uid == uid)
+		satz = engine.execute(db_satz.select().where(db_satz.c.uid == uid)).fetchone()
 		return str(satz.pro) + ',' + str(satz.kontra)
 	elif req == "kontra" and ist_berechtigt(uid):
 		satz_negativ_bewerten(uid)
 		bewertung_loggen(uid)
-		satz = Satz.get(Satz.uid == uid)
+		satz = engine.execute(db_satz.select().where(db_satz.c.uid == uid)).fetchone()
 		return str(satz.pro) + ',' + str(satz.kontra)
 	elif req == "permalink":
 		satz_permanent_speichern(uid)
@@ -178,25 +179,25 @@ def satz_bewerten(uid):
 @route('/beste-bewertung')
 def beste_bewertung():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz WHERE pro >= kontra ORDER BY pro DESC, kontra LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().where(db_satz.c.pro >= db_satz.c.kontra).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
 	return template('stats', titel="Die Sätze mit den besten Bewertungen", satze=satze)
 
 @route('/schlechte-bewertung')
 def schlechte_bewertung():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz WHERE kontra >= pro ORDER BY kontra DESC, pro LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().where(db_satz.c.kontra >= db_satz.c.pro).order_by(db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
 	return template('stats', titel="Die Sätze mit den schlechtesten Bewertungen", satze=satze)
 
 @route('/meiste-bewertung')
 def meiste_bewertung():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz ORDER BY pro+kontra DESC LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().order_by(db_satz.c.pro + db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
 	return template('stats', titel="Die Sätze mit den meisten Bewertungen", satze=satze)
 
 @route('/neue-saetze')
 def neue_saetze():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz ORDER BY created DESC LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().order_by(db_satz.c.created.desc()).limit(anzahl)).fetchall()
 	return template('neue', titel="Die neusten Sätze", satze=satze)
 
 @route('/bootstrap/<filepath:path>')
@@ -213,4 +214,4 @@ def error404(error):
 
 # allow running from the command line
 if __name__ == '__main__':
-	run(reloader=True, debug=True, host='satzgenerator.de', port=80)
+	run(debug=True, host='satzgenerator.de', port=8080)#, reloader=True)
