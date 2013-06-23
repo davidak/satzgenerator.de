@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from bottle import route, template, static_file, error, request, response, redirect, default_app, run, debug
+from bottle import route, template, static_file, error, request, response, redirect, default_app#, run, debug
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, Boolean, ForeignKey, select, func
 from pyzufall import pyzufall as z
 from datetime import datetime, timedelta
 import random
 import sys
 
-debug(mode=True)
+#debug(mode=True)
 
 random.seed() # Zufallsgenerator initialisieren
 
-debug = 1 # 0, 1
+debug = 0 # 0, 1
 
 # Verbindung zur MySQL-Datenbank herstellen
 engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
@@ -216,5 +216,5 @@ def error404(error):
     return template('404', titel="Satzgenerator: Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
 
 # allow running from the command line
-if __name__ == '__main__':
-	run(debug=True, host='satzgenerator.de', port=8080)#, reloader=True)
+#if __name__ == '__main__':
+#	run(debug=True, host='satzgenerator.de', port=8080, reloader=True)
