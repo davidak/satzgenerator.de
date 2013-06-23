@@ -1,96 +1,100 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from bottle import route, template, static_file, error, request, response, redirect, default_app, run, debug
-from peewee import *
-import MySQLdb
+from bottle import route, template, static_file, error, request, response, redirect, default_app#, run, debug
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, Boolean, ForeignKey, select, func
 from pyzufall import pyzufall as z
 from datetime import datetime, timedelta
 import random
 import sys
 
-debug(mode=True)
+#debug(mode=True)
 
 random.seed() # Zufallsgenerator initialisieren
 
+debug = 0 # 0, 1
+
+# Verbindung zur MySQL-Datenbank herstellen
+engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
+
+metadata = MetaData()
+
+# Datenbank-Schema
+db_satz = Table('satz', metadata,
+	Column('uid', String(5), primary_key=True),
+	Column('created', DateTime, nullable=False),
+	Column('updated', DateTime),
+	Column('pro', Integer, default=0),
+	Column('kontra', Integer, default=0),
+	Column('tmp', Boolean, default=1),
+	Column('satz', String(256), nullable=False)
+)
+
+db_benutzer = Table('benutzer', metadata,
+	Column('id', Integer, primary_key=True),
+	Column('uid', String(5), ForeignKey("satz.uid"), nullable=False),
+	Column('ip', String(16), nullable=False),
+	Column('voted', DateTime, nullable=False)
+)
+
+# Tabellen erzeugen, falls sie nicht existieren
+metadata.create_all(engine)
+
 def jetzt():
 	return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-#db = MySQLDatabase('davidak_satzgenerator', user='davidak',passwd='9335be4gnjcvd7hbxp5f')
-db = SqliteDatabase('dev.db')
-
-class DBModel(Model):
-	class Meta:
-		database = db
-
-class Satz(DBModel):
-	uid = CharField(primary_key=True)
-	created = DateTimeField()
-	updated = DateTimeField(null=True)
-	pro = IntegerField(default=0, null=True)
-	kontra = IntegerField(default=0, null=True)
-	tmp = BooleanField(default=True)
-	satz = CharField()
-
-class Benutzer(DBModel):
-	satz_uid = CharField()
-	ip = CharField()
-	voted = DateTimeField()
-
-def erstelle_tabellen():
-    db.connect()
-    Satz.create_table()
-    Benutzer.create_table()
-
-#erstelle_tabellen()
 
 def neuen_satz_speichern(satz):
 	for x in range(10): # 10 Versuche, den Satz zu speichern
 		try:
 			uid = ''.join(random.choice('abcdefghiklmnopqrstuvwxyz') for x in range(5))
-			Satz.create( # Neuen Satz in DB speichern
-			uid = uid,
-			created = jetzt(),
-			satz = satz
-			)
+			engine.execute(db_satz.insert(), uid=uid, created=jetzt(), satz=satz)
 			return uid
 		except:
-			print('Fehler: Satz konnte nicht in die Datenbank gespeichert werden.')
-	print('Der Satz konnte auch beim 10. Versuch nicht in die Datenbank gespeichert werden. Das ist vermutlich ein Datenbank-Problem und es sollte der Administrator informiert werden.')
+			if debug: print('Fehler: Satz konnte nicht in die Datenbank gespeichert werden.')
+	if debug: print('Der Satz konnte auch beim 10. Versuch nicht in die Datenbank gespeichert werden. Das ist vermutlich ein Datenbank-Problem und es sollte der Administrator informiert werden.')
 
 def neuen_satz_generieren():
 	satz = z.satz()
 	try:
-		uid = Satz.get(Satz.satz == satz).uid # Wenn Satz bereits in DB, gib UID zurück
+		satz_row = engine.execute(db_satz.select().where(db_satz.c.satz == satz)).fetchone()
+		uid = satz_row.uid
+		if debug: print('Satz bereits in Datenbank mit uid ' + uid)
 		return uid
-	except Satz.DoesNotExist: # ansonsten speichern
+	except: # ansonsten speichern
 		uid = neuen_satz_speichern(satz)
+		if debug: print('Satz in Datenbank gespeichert mit uid ' + uid)
 		return uid
-	except: # andere Fehler
-		print("Fehler beim speichern des Satzes.")
 
 def satz_positiv_bewerten(uid):
 	try:
-		Satz.update(updated = jetzt(), pro = Satz.pro + 1, tmp = False).where(Satz.uid == uid).execute()
+		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(pro = db_satz.c.pro + 1, tmp = False, updated=jetzt()))
 	except:
-		print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
+		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
 def satz_negativ_bewerten(uid):
 	try:
-		Satz.update(updated = jetzt(), kontra = Satz.kontra + 1, tmp = False).where(Satz.uid == uid).execute()
+		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(kontra = db_satz.c.kontra + 1, tmp = False, updated=jetzt()))
 	except:
-		print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
+		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
 def satz_permanent_speichern(uid):
 	try:
-		Satz.update(updated = jetzt(), tmp = False).where(Satz.uid == uid).execute()
+		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(tmp = False, updated=jetzt()))
 	except:
-		print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
+		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
+
+def bewertung_loggen(uid):
+	try:
+		ip = request.get('REMOTE_ADDR')
+		engine.execute(db_benutzer.insert(), uid=uid, ip=ip, voted=jetzt())
+	except:
+		if debug: print("Fehler: Bewertung konnte nicht geloggt werden.")
 
 def ist_berechtigt(uid):
 	try:
 		ip = request.get('REMOTE_ADDR')
-		zuletzt_bewertet = Benutzer.get((Benutzer.satz_uid == uid) & (Benutzer.ip == ip)).voted
+		log_row = engine.execute(db_benutzer.select().where((db_benutzer.c.uid == uid) & (db_benutzer.c.ip == ip))).fetchone()
+		zuletzt_bewertet = log_row.voted
 		differenz = datetime.now() - zuletzt_bewertet # vergangene Zeit seit der letzten Bewertung des Satzes
 		if differenz.days > 1: # länger als 24 Stunden
 			return True
@@ -101,27 +105,17 @@ def ist_berechtigt(uid):
 
 def temporaere_saetze_loeschen():
 	try:
-		Satz.delete().where(Satz.tmp == True).execute()
+		engine.execute(db_satz.delete().where(db_satz.c.tmp == True))
 	except:
-		print('Fehler: Die temporären Sätze konnten nicht aus der Datenbank gelöscht werden.')
-
-def bewertung_loggen(uid):
-	try:
-		Benutzer.create( # Benutzer hat Satz bewertet
-		satz_uid = uid,
-		ip = request.get('REMOTE_ADDR'),
-		voted = jetzt()
-		)
-	except:
-		print("Fehler: Bewerung konnte nicht geloggt werden.")
+		if debug: print('Fehler: Die temporären Sätze konnten nicht aus der Datenbank gelöscht werden.')
 
 def log_aufraeumen():
 	try:
 		gestern = datetime.now() - timedelta(days=1)
 		gestern = gestern.strftime('%Y-%m-%d %H:%M:%S')
-		Benutzer.delete().where(Benutzer.voted < gestern).execute()
+		engine.execute(db_benutzer.delete().where(db_benutzer.c.voted < gestern))
 	except:
-		print("Fehler: Bewertungslog konnten nicht aufgeräumt werden.")
+		if debug: print("Fehler: Bewertungslog konnten nicht aufgeräumt werden.")
 
 def cron():
 	temporaere_saetze_loeschen()
@@ -151,7 +145,8 @@ def generator():
 @route('/zufaelliger-satz')
 def zufaelliger_satz():
 	try:
-		uid = Satz.select().where((Satz.tmp == False) & (Satz.pro >= Satz.kontra)).order_by(fn.Random()).limit(1).get().uid
+		satz = engine.execute(db_satz.select().where((db_satz.c.tmp == False) & (db_satz.c.pro >= db_satz.c.kontra)).order_by(func.rand()).limit(1)).fetchone()
+		uid = satz.uid
 	except:
 		print("Fehler: Es konnte kein zufälliger Satz aus der Datenbank geladen werden.")
 		uid = ''
@@ -160,7 +155,7 @@ def zufaelliger_satz():
 @route('/<uid:re:[a-z]{5}>', method='GET')
 def satz_detailseite(uid):
 	try:
-		satz = Satz.get(Satz.uid == uid)
+		satz = engine.execute(db_satz.select().where(db_satz.c.uid == uid)).fetchone()
 		return template('satz', titel='Satzgenerator: ' + satz.satz, satz_uid=satz.uid, satz=satz.satz, positiv=satz.pro, negativ=satz.kontra)
 	except:
 		response.status = 404
@@ -172,12 +167,12 @@ def satz_bewerten(uid):
 	if req == "pro" and ist_berechtigt(uid):
 		satz_positiv_bewerten(uid)
 		bewertung_loggen(uid)
-		satz = Satz.get(Satz.uid == uid)
+		satz = engine.execute(db_satz.select().where(db_satz.c.uid == uid)).fetchone()
 		return str(satz.pro) + ',' + str(satz.kontra)
 	elif req == "kontra" and ist_berechtigt(uid):
 		satz_negativ_bewerten(uid)
 		bewertung_loggen(uid)
-		satz = Satz.get(Satz.uid == uid)
+		satz = engine.execute(db_satz.select().where(db_satz.c.uid == uid)).fetchone()
 		return str(satz.pro) + ',' + str(satz.kontra)
 	elif req == "permalink":
 		satz_permanent_speichern(uid)
@@ -187,25 +182,25 @@ def satz_bewerten(uid):
 @route('/beste-bewertung')
 def beste_bewertung():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz WHERE pro >= kontra ORDER BY pro DESC, kontra LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().where(db_satz.c.pro >= db_satz.c.kontra).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
 	return template('stats', titel="Die Sätze mit den besten Bewertungen", satze=satze)
 
 @route('/schlechte-bewertung')
 def schlechte_bewertung():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz WHERE kontra >= pro ORDER BY kontra DESC, pro LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().where(db_satz.c.kontra >= db_satz.c.pro).order_by(db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
 	return template('stats', titel="Die Sätze mit den schlechtesten Bewertungen", satze=satze)
 
 @route('/meiste-bewertung')
 def meiste_bewertung():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz ORDER BY pro+kontra DESC LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().order_by(db_satz.c.pro + db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
 	return template('stats', titel="Die Sätze mit den meisten Bewertungen", satze=satze)
 
 @route('/neue-saetze')
 def neue_saetze():
 	anzahl = 50
-	satze = Satz.raw('SELECT * FROM satz ORDER BY created DESC LIMIT ' + str(anzahl))
+	satze = engine.execute(db_satz.select().order_by(db_satz.c.created.desc()).limit(anzahl)).fetchall()
 	return template('neue', titel="Die neusten Sätze", satze=satze)
 
 @route('/bootstrap/<filepath:path>')
@@ -221,5 +216,5 @@ def error404(error):
     return template('404', titel="Satzgenerator: Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
 
 # allow running from the command line
-if __name__ == '__main__':
-	run(reloader=True, debug=True, host='10.0.0.11', port=8080)
+#if __name__ == '__main__':
+#	run(debug=True, host='satzgenerator.de', port=8080, reloader=True)

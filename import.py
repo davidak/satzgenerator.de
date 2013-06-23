@@ -1,67 +1,47 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from peewee import *
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Text, DateTime, Boolean, ForeignKey, select, func
 from datetime import datetime
-import MySQLdb
+import random
 
-mysql = MySQLDatabase('davidak_satzgenerator', user='davidak',passwd='9335be4gnjcvd7hbxp5f')
-sqlite = SqliteDatabase('database.db')
+# Verbindung zur MySQL-Datenbank herstellen
+mysql = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
+sqlite = create_engine('sqlite:///datenbank.db')
 
-class SQLite(Model):
-	class Meta:
-		database = sqlite
+metamysql = MetaData(mysql)
+metasqlite = MetaData(sqlite)
 
-class MySQL(Model):
-	class Meta:
-		database = mysql
+# Datenbank-Schema
+db_satz = Table('satz', metamysql,
+	Column('uid', String(5), primary_key=True),
+	Column('created', DateTime, nullable=False),
+	Column('updated', DateTime),
+	Column('pro', Integer, default=0),
+	Column('kontra', Integer, default=0),
+	Column('tmp', Boolean, default=1),
+	Column('satz', String(256), nullable=False)
+)
 
-class Satz(MySQL):
-	uid = CharField(primary_key=True)
-	created = DateTimeField()
-	updated = DateTimeField(null=True)
-	pro = IntegerField(default=0, null=True)
-	kontra = IntegerField(default=0, null=True)
-	tmp = BooleanField(default=True)
-	satz = CharField()
+db_benutzer = Table('benutzer', metamysql,
+	Column('id', Integer, primary_key=True),
+	Column('uid', String(5), ForeignKey("satz.uid"), nullable=False),
+	Column('ip', String(16), nullable=False),
+	Column('voted', DateTime, nullable=False)
+)
 
-class Benutzer(MySQL):
-	satz_uid = CharField()
-	ip = CharField()
-	voted = DateTimeField()
+db_satz_2 = Table('satz', metasqlite,
+	Column('id', Integer, primary_key=True),
+	Column('pro', Integer, default=0),
+	Column('contra', Integer, default=0),
+	Column('zeitstempel', Integer, default=0),
+	Column('satz', Text, nullable=False)
+)
 
-def erstelle_tabellen():
-    mysql.connect()
-    Satz.create_table()
-    Benutzer.create_table()
+i = 0
 
-class SatzAlt(SQLite):
-	id = PrimaryKeyField()
-	pro = IntegerField(null=True)
-	contra = IntegerField(null=True)
-	zeitstempel = DateTimeField()
-	satz = TextField()
-
-erstelle_tabellen()
-
-def neuen_satz_speichern(satz, created, pro, kontra):
-	for x in range(10): # 10 Versuche, den Satz zu speichern
-		try:
-			uid = ''.join(random.choice('abcdefghiklmnopqrstuvwxyz') for x in range(5))
-			Satz.create( # Neuen Satz in DB speichern
-			uid = uid,
-			created = created,
-			pro = pro,
-			kontra = kontra,
-			tmp = False,
-			satz = satz
-			)
-		except:
-			print('Fehler: Satz konnte nicht in die Datenbank gespeichert werden.')
-	print('Der Satz konnte auch beim 10. Versuch nicht in die Datenbank gespeichert werden. Das ist vermutlich ein Datenbank-Problem und es sollte der Administrator informiert werden.')
-
-def saetze_importieren():
-	for satz in SatzAlt.select().where(SatzAlt.pro > SatzAlt.contra):
-		neuen_satz_speichern(satz.satz, satz.zeitstempel, satz.pro, satz.contra)
-
-saetze_importieren()
+for satz in sqlite.execute(db_satz_2.select().where(db_satz_2.c.pro >= db_satz_2.c.contra)).fetchall():
+	i+=1
+	print(i)
+	uid = ''.join(random.choice('abcdefghiklmnopqrstuvwxyz') for x in range(5))
+	mysql.execute(db_satz.insert(), uid=uid, created=satz.zeitstempel, pro=satz.pro, kontra=satz.contra, tmp=False, satz=satz.satz)
