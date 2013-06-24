@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, template, static_file, error, request, response, redirect, default_app#, run, debug
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, Boolean, ForeignKey, select, func
+from sqlalchemy import create_engine, MetaData
+from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
+from sqlalchemy import select, func
 from pyzufall import pyzufall as z
 from datetime import datetime, timedelta
 import random
@@ -202,10 +204,6 @@ def neue_saetze():
 	anzahl = 50
 	satze = engine.execute(db_satz.select().order_by(db_satz.c.created.desc()).limit(anzahl)).fetchall()
 	return template('neue', titel="Die neusten Sätze", satze=satze)
-
-@route('/bootstrap/<filepath:path>')
-def server_static(filepath):
-    return static_file(filepath, root='./bootstrap/')
 
 @route('/style/<filepath:path>')
 def server_static(filepath):

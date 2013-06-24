@@ -1,7 +1,8 @@
 #!/bin/sh
+# using Python 2.7
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
-virtualenv-python3.2 -p /usr/bin/python3 .
+virtualenv -p /usr/bin/python .
 source bin/activate
 pip install -r requirements.txt
 deactivate
