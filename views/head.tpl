@@ -5,7 +5,8 @@
 <meta name="keywords" content="Satz generieren, Sätze, Fakten, Satzgenerator, deutsch, Open Source, Python, absurd, lustig, bewerten, download" />
 <meta name="author" content="davidak">
 <meta name="robots" content="index,follow">
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 <link href="style/base.css" rel="stylesheet">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>

@@ -17,8 +17,8 @@
     
     <blockquote>
       <h3>{{i}}. <a href="/{{satz.uid}}">{{satz.satz}}</a></h3>
-      <i class="icon-thumbs-up"></i> {{str(satz.pro)}} 
-      <i class="icon-thumbs-down"></i> {{str(satz.kontra)}}
+      <i class="icon-thumbs-up-alt"></i> {{str(satz.pro)}} 
+      <i class="icon-thumbs-down-alt"></i> {{str(satz.kontra)}}
     </blockquote>
 %end
 
