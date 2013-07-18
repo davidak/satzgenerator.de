@@ -40,8 +40,6 @@ Du darfst diesen Satz nur einmal in 24 Stunden bewerten.
 
 </div> <!-- /content -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
 <script>function show_permalink() {document.getElementById('permalink').style.display='block'; document.getElementById('permalink').select();}</script>
 <script>function show_warning() {document.getElementById('warnung').style.display='block';}</script>
 <script>function hide_warning() {document.getElementById('warnung').style.display='none';}</script>
