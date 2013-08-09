@@ -5,20 +5,19 @@ body {
 	background-repeat:repeat-x; background-color: #F5F6F7;
 }
 .navbar h1 { font-size: 20px; line-height: 0px; }
-h1 { font-size: 36px; }
-h2 { font-size: 31.5px; padding: 20px; }
-h3 { font-size: 17.5px; }
+h1 { font-size: 42px; }
+h2 { font-size: 32px; padding: 20px; }
+h3 { font-size: 20px; }
 }
 
 /* all smaller than 980 */
 @media (min-width: 1px) and (max-width: 979px) {
 body { padding-top: 0px; }
-h2 { font-size: 30px; padding: 5px; }
+h2 { font-size: 32px; padding: 5px; }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-h1 { font-size: 26px; }
-h2 { font-size: 18px; }
-h3 { font-size: 12px; }
+h1 { font-size: 28px; }
+h2 { font-size: 24px; }
 }
