@@ -1,7 +1,7 @@
 @media all {
 #content { text-align: center; margin-top: 20%; }
 #permalink, #warnung { display:none; }
-.btn-toolbar { margin-top: 40px; }
+.btn-toolbar { margin-top: 2%; }
 
 /* Responsive */
 .progress { width:337px; margin-left:auto; margin-right:auto; }
@@ -15,17 +15,13 @@
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-.btn-toolbar { margin-top: 20px; }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-h2 { font-size: 18px; }
-h3 { font-size: 12px; }
 .progress { width:268px; }
 .input-block-level { width:268px; }
 #warnung { width:214px; }
 #content { margin-top: 0px; }
-.btn-toolbar { margin-top: 10px; }
 .hidden-480 { display: none; }
 }
