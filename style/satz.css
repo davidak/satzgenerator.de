@@ -20,7 +20,8 @@
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-h1 { font-size: 30px; }
+h2 { font-size: 18px; }
+h3 { font-size: 12px; }
 .progress { width:268px; }
 .input-block-level { width:268px; }
 #warnung { width:214px; }
