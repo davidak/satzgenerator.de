@@ -1,12 +1,12 @@
 @media all {
-#content { text-align: center; margin-top: 100px; }
+#content { text-align: center; margin-top: 20%; }
 #permalink, #warnung { display:none; }
 .btn-toolbar { margin-top: 40px; }
 
 /* Responsive */
-.progress { width:343px; margin-left:auto; margin-right:auto; }
-.input-block-level { width:343px; margin-left:auto; margin-right:auto; }
-#warnung { width:291px; margin-left:auto; margin-right:auto; }
+.progress { width:337px; margin-left:auto; margin-right:auto; }
+.input-block-level { width:337px; margin-left:auto; margin-right:auto; }
+#warnung { width:285px; margin-left:auto; margin-right:auto; }
 }
 
 /* Portrait tablet to landscape and desktop */
@@ -15,16 +15,15 @@
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-#content { margin-top: 50px; }
 .btn-toolbar { margin-top: 20px; }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
 h1 { font-size: 30px; }
-.progress { width:274px; }
-.input-block-level { width:274px; }
-#warnung { width:220px; }
+.progress { width:268px; }
+.input-block-level { width:268px; }
+#warnung { width:214px; }
 #content { margin-top: 0px; }
 .btn-toolbar { margin-top: 10px; }
 .hidden-480 { display: none; }
