@@ -5,7 +5,7 @@ from bottle import route, template, static_file, error, request, response, redir
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy import select, func
-from pyzufall import pyzufall as z
+from pyzufall.satz import satz
 from datetime import datetime, timedelta
 import random
 import sys
@@ -56,7 +56,7 @@ def neuen_satz_speichern(satz):
 	if debug: print('Der Satz konnte auch beim 10. Versuch nicht in die Datenbank gespeichert werden. Das ist vermutlich ein Datenbank-Problem und es sollte der Administrator informiert werden.')
 
 def neuen_satz_generieren():
-	satz = z.satz()
+	satz = satz()
 	try:
 		satz_row = engine.execute(db_satz.select().where(db_satz.c.satz == satz)).fetchone()
 		uid = satz_row.uid
