@@ -1,5 +1,10 @@
+<div id="footer">
+<p class="text-muted credit">Entwickelt 2013 von <a href="http://davidak.de/">davidak</a> mit <a href="http://python.org/">Python</a>, <a href="http://bottlepy.org/">Bottle</a> und <a href="http://getbootstrap.com/">Bootstrap</a>. Die Sätze werden mit <a href="http://pyzufall.readthedocs.org/de/latest/">PyZufall</a> generiert.</p><p class="text-muted credit text-right"><a href="http://davidak.de/impressum">Impressum</a></p>
+</div>
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+<script src="style/jquery.fittext.js"></script>
 
 <!-- Piwik --> 
 <!--<script type="text/javascript">

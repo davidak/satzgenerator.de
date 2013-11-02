@@ -6,6 +6,9 @@
 </head>
 <body>
 
+<!-- Wrap all page content here -->
+<div id="wrap">
+
 %include menu
 
 <div id="content" class="container">
@@ -43,11 +46,12 @@ Bitte aktiviere JavaScript, um Sätze bewerten und teilen zu können.
 Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 </div>
 
-</div> <!-- /content -->
+</div> <!-- #content -->
+
+</div> <!-- #wrap -->
 
 %include footer
 
-<script src="style/jquery.fittext.js"></script>
 <script type="text/javascript">
 
 // Satz so groß wie möglich, aber nicht mehr als 4 Zeilen
@@ -63,7 +67,7 @@ else {
 
 // auf mobilen geräten kleiner als 480 kleine Buttons anzeigen
 function smallButtons() {
-  if ( $(window).width() <= 480 ) {
+  if ( $(window).width() <= 768 ) {
     $("#pos").addClass("btn-sm");
     $("#neg").addClass("btn-sm");
     $("#per").addClass("btn-sm");

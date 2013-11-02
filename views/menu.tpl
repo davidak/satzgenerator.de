@@ -17,7 +17,7 @@
 		<li><a href="/schlechte-bewertung">Schlechte Bewertung</a></li>
 		<li><a href="/meiste-bewertung">Meiste Bewertung</a></li>
 		<li><a href="/neue-saetze">Neue Sätze</a></li>
-		<li><a href="http://davidak.de/impressum">Impressum</a></li>
+		<li class="visible-xs"><a href="http://davidak.de/impressum">Impressum</a></li> <!-- nur mobil, sonst Footer -->
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>

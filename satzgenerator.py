@@ -213,7 +213,7 @@ def server_static(filepath):
 
 @error(404)
 def error404(error):
-    return template('404', titel="Satzgenerator: Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
+    return template('404', titel="Satzgenerator: Fehler 404 - Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
 
 # allow running from the command line
 if __name__ == '__main__':
