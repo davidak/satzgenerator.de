@@ -217,4 +217,4 @@ def error404(error):
 
 # allow running from the command line
 if __name__ == '__main__':
-	run(debug=True, host='10.0.0.8', port=80, reloader=True)
+	run(debug=True, host='10.0.0.8', port=8081, reloader=True)

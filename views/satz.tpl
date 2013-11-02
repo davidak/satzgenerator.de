@@ -16,23 +16,12 @@
 </div>
 </div>
 
-<!-- Mobil, kleine Buttons ... besserer Weg? -->
 <form id="bewerten" action="#" method="POST">
-<div class="btn-toolbar visible-xs" role="toolbar">
-<button id="pos" type="button" name="pro" class="btn btn-success btn-sm"><i class="icon-thumbs-up-alt"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
-<button id="neg" type="button" name="kontra" class="btn btn-danger btn-sm"><i class="icon-thumbs-down-alt"></i></button>
-<button id="per" type="button" name="permalink" onclick="show_permalink()" class="btn btn-primary btn-sm">Teilen</button>
-<a class="btn btn-default btn-sm" role="button" href="/"><i class="icon-refresh"></i> Neuer Satz</a>
-</div>
-</form>
-
-<!-- normale Buttons -->
-<form id="bewerten" action="#" method="POST">
-<div class="btn-toolbar hidden-xs" role="toolbar">
+<div class="btn-toolbar" role="toolbar">
 <button id="pos" type="button" name="pro" class="btn btn-success"><i class="icon-thumbs-up-alt"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
 <button id="neg" type="button" name="kontra" class="btn btn-danger"><i class="icon-thumbs-down-alt"></i></button>
 <button id="per" type="button" name="permalink" onclick="show_permalink()" class="btn btn-primary">Teilen</button>
-<a class="btn btn-default" role="button" href="/"><i class="icon-refresh"></i> Neuer Satz</a>
+<a id="satz_neu" class="btn btn-default" role="button" href="/"><i class="icon-refresh"></i> Neuer Satz</a>
 </div>
 </form>
 
@@ -72,12 +61,26 @@ else {
   $("#satz").fitText(1.6);
 }
 
+// auf mobilen geräten kleiner als 480 kleine Buttons anzeigen
+function smallButtons() {
+  if ( $(window).width() <= 480 ) {
+    $("#pos").addClass("btn-sm");
+    $("#neg").addClass("btn-sm");
+    $("#per").addClass("btn-sm");
+    $("#satz_neu").addClass("btn-sm");
+  }
+}
+smallButtons();
+
 // Permalink anzeigen
-function show_permalink() {document.getElementById('permalink').style.display='block'; document.getElementById('permalink').select();}
+function show_permalink() {
+  $("#permalink").css("display", "block");
+  $("#permalink").select();
+}
 
 // Fehlermeldung anzeigen oder verbergen
-function show_warning() {document.getElementById('warnung').style.display='block';}
-function hide_warning() {document.getElementById('warnung').style.display='none';}
+function show_warning() { $("#warnung").css("display", "block"); }
+function hide_warning() { $("#warnung").css("display", "none"); }
 
 // Bewertung abschicken
 $("#pos, #neg, #per").click(function() {
@@ -110,28 +113,23 @@ negativ = {{get('negativ', '0')}};
 // wenn Bewertung vorhanden -> anzeigen
 if (positiv > 0 || negativ > 0) { bewertung_anzeigen(positiv, negativ); }
 
-function bewertung_anzeigen(positiv, negativ)
-{
-    document.getElementById('bewertung').style.display='block';
+function bewertung_anzeigen(positiv, negativ) {
+  $("#bewertung").css("display", "block");
 
-    var gesamt = parseInt(positiv) + parseInt(negativ);
-    positiv_prozent = parseInt(positiv / gesamt * 100);
-    negativ_prozent = parseInt(100 - positiv_prozent);
+  var gesamt = parseInt(positiv) + parseInt(negativ);
+  positiv_prozent = parseInt(positiv / gesamt * 100);
+  negativ_prozent = parseInt(100 - positiv_prozent);
 
-    document.getElementById('positiv_prozent_balken').style.width = positiv_prozent + "%";
-    document.getElementById('positiv_prozent_balken').innerHTML = positiv;
+  $("#positiv_prozent_balken").css("width", positiv_prozent + "%");
+  $("#positiv_prozent_balken").html(positiv);
 
-    document.getElementById('negativ_prozent_balken').style.width = negativ_prozent + "%";
-    document.getElementById('negativ_prozent_balken').innerHTML = negativ;
+  $("#negativ_prozent_balken").css("width", negativ_prozent + "%");
+  $("#negativ_prozent_balken").html(negativ);
 }
 
 function bewertung_deaktivieren() {
-  var poss = document.getElementById("pos")
-  poss.className = poss.className + " disabled";
-  poss.setAttribute("disabled", true);
-  var nega = document.getElementById("neg")
-  nega.className = nega.className + " disabled";
-  nega.setAttribute("disabled", true);
+  $("#pos").addClass("disabled");
+  $("#neg").addClass("disabled");
 }
 </script>
 
