@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from bottle import route, template, static_file, error, request, response, redirect, default_app#, run, debug
+from bottle import route, template, static_file, error, request, response, redirect, default_app, run, debug
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy import select, func
@@ -14,10 +14,12 @@ import sys
 
 random.seed() # Zufallsgenerator initialisieren
 
-debug = 0 # 0, 1
+debug = 1 # 0, 1
 
 # Verbindung zur MySQL-Datenbank herstellen
-engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
+#engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
+# test db
+engine = create_engine('mysql+mysqlconnector://root:@localhost/satzgenerator_test')#, echo=True) # debug
 
 metadata = MetaData()
 
@@ -56,14 +58,14 @@ def neuen_satz_speichern(satz):
 	if debug: print('Der Satz konnte auch beim 10. Versuch nicht in die Datenbank gespeichert werden. Das ist vermutlich ein Datenbank-Problem und es sollte der Administrator informiert werden.')
 
 def neuen_satz_generieren():
-	satz = satz()
+	s = satz()
 	try:
-		satz_row = engine.execute(db_satz.select().where(db_satz.c.satz == satz)).fetchone()
+		satz_row = engine.execute(db_satz.select().where(db_satz.c.satz == s)).fetchone()
 		uid = satz_row.uid
 		if debug: print('Satz bereits in Datenbank mit uid ' + uid)
 		return uid
 	except: # ansonsten speichern
-		uid = neuen_satz_speichern(satz)
+		uid = neuen_satz_speichern(s)
 		if debug: print('Satz in Datenbank gespeichert mit uid ' + uid)
 		return uid
 
@@ -214,5 +216,5 @@ def error404(error):
     return template('404', titel="Satzgenerator: Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
 
 # allow running from the command line
-#if __name__ == '__main__':
-#	run(debug=True, host='satzgenerator.de', port=8080, reloader=True)
+if __name__ == '__main__':
+	run(debug=True, host='10.0.0.8', port=80, reloader=True)

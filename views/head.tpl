@@ -1,11 +1,12 @@
 <meta charset="utf-8">
 <title>{{titel or 'Satzgenerator'}}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="description" content="Der beste deutsche Satzgenerator im Internet. Erzeugt zufällige Sätze, die zum Teil lustig sind.">
-<meta name="keywords" content="Satz generieren, Sätze, Fakten, Satzgenerator, deutsch, Open Source, Python, absurd, lustig, bewerten, download" />
+<meta name="keywords" content="Satzgenerator, Satz generieren, Sätze, Fakten, Open Source, Python, deutsch, absurd, lustig, bewerten" />
 <meta name="author" content="davidak">
 <meta name="robots" content="index,follow">
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+
+<link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/readable/bootstrap.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 <link href="style/base.css" rel="stylesheet">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

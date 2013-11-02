@@ -1,27 +1,23 @@
 <!-- Menü -->
-<div class="navbar navbar-fixed-top navbar-inverse">
-<div class="navbar-inner">
-<div class="container-fluid">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mehr">
+      <span class="sr-only">mehr</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">Satzgenerator</a>
+  </div>
 
-<a class="brand" href="/"><h1>Satzgenerator</h1></a>
-
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
- <span class="icon-bar"></span>
- <span class="icon-bar"></span>
- <span class="icon-bar"></span>
-</a>
-
-<div class="nav-collapse collapse">
-
-<ul class="nav">
-<li><a href="/beste-bewertung">Beste Bewertung</a></li>
-<li><a href="/schlechte-bewertung">Schlechte Bewertung</a></li>
-<li><a href="/meiste-bewertung">Meiste Bewertung</a></li>
-<li><a href="/neue-saetze">Neue Sätze</a></li>
-<li><a href="http://davidak.de/impressum">Impressum</a></li>
-</ul>
-
-</div><!-- /.nav-collapse -->
-</div><!-- /.container -->
-</div><!-- /.navbar-inner -->
-</div><!-- /.navbar -->
+  <div class="collapse navbar-collapse" id="mehr">
+    <ul class="nav navbar-nav navbar-right">
+     	<li><a href="/beste-bewertung">Beste Bewertung</a></li>
+		<li><a href="/schlechte-bewertung">Schlechte Bewertung</a></li>
+		<li><a href="/meiste-bewertung">Meiste Bewertung</a></li>
+		<li><a href="/neue-saetze">Neue Sätze</a></li>
+		<li><a href="http://davidak.de/impressum">Impressum</a></li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>

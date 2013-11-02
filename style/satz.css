@@ -1,27 +1,40 @@
-@media all {
-#content { text-align: center; margin-top: 20%; }
-#permalink, #warnung { display:none; }
-.btn-toolbar { margin-top: 2%; }
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+body, html, #content { height: 100%; }
+#content { text-align: center; width: 100%; }
+.container { max-width: 100%; }
+.satz_bereich { display: table; height: 60%; width: 100%; margin-top: 0px; }
+.satz { display: table-cell; height: 100%; vertical-align:middle; }
+.progress { width: 354px; margin-bottom: 2%; margin-left: auto; margin-right: auto; }
+.input-block-level { width: 354px; margin-left:auto; margin-right:auto; }
+#warnung { width: 285px; margin-top: 2%; margin-bottom: 2%; margin-left:auto; margin-right:auto; }
+.btn-toolbar { margin-top: 2%; margin-bottom: 2%; }
 
-/* Responsive */
-.progress { width:337px; margin-left:auto; margin-right:auto; }
-.input-block-level { width:337px; margin-left:auto; margin-right:auto; }
-#warnung { width:285px; margin-left:auto; margin-right:auto; }
-}
-
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-}
-
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
-}
+/* erstmal ausblenden */
+#bewertung, #permalink, #warnung { display:none; }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-.progress { width:268px; }
-.input-block-level { width:268px; }
-#warnung { width:214px; }
-#content { margin-top: 0px; }
-.hidden-480 { display: none; }
+	.hidden-480 { display: none; }
+	.progress { width: 278px; }
+	.input-block-level { width: 278px; }
+}
+
+/* Landscape phone to portrait tablet */
+@media(max-width: 767px){
+}
+
+/* Small devices (tablets, 768px and up) */
+@media(min-width:768px){
+	.container { max-width: 90%; }
+	.progress { width: 405px; }
+	.input-block-level { width: 405px; }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media(min-width:992px){}
+
+/* Large devices (large desktops, 1200px and up) */
+@media(min-width:1200px){
+	.satz_bereich { height: 50%; margin-top: 5%; }
 }
