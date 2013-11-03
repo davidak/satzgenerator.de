@@ -2,16 +2,22 @@
 /* No media query since this is the default in Bootstrap */
 body, html, #content { height: 100%; }
 #content { text-align: center; width: 100%; }
-.container { max-width: 100%; }
+.container { width: 100%; }
 .satz_bereich { display: table; height: 9em; width: 100%; margin-top: 0px; }
-.satz { display: table-cell; height: 100%; vertical-align:middle; }
+.satz { display: table-cell; height: 100%; width: 100%; vertical-align:middle; }
 .progress { width: 354px; margin-bottom: 20px; margin-left: auto; margin-right: auto; }
 .input-block-level { width: 354px; margin-bottom: 20px; margin-left:auto; margin-right:auto; }
 #warnung, #js-warn { width: 285px; margin-left:auto; margin-right:auto; }
 .btn-toolbar { margin-bottom: 20px; }
 
-/* groß auch ohne JavaScript */
-#satz { font-size: 84px; }
+#satz {
+	/* groß auch ohne JavaScript */
+	font-size: 500%;
+	margin-left: 5%;
+	margin-right: 5%;
+	/* erstmal ausblenden */
+	opacity: 0;
+}
 
 /* erstmal ausblenden */
 #bewertung, #permalink, #warnung { display:none; }
@@ -26,21 +32,18 @@ body, html, #content { height: 100%; }
 
 /* Landscape phone to portrait tablet */
 @media(max-width: 767px) {
-	.container { max-width: 98%; }
 }
 
 /* Small devices (tablets, 768px and up) */
 @media(min-width:768px) {
-	#satz { opacity: 0; }
-	.satz_bereich { height: 20em; }
-	.container { max-width: 92%; }
+	.satz_bereich { height: 22em; }
 	.progress { width: 405px; }
 	.input-block-level { width: 405px; }
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media(min-width:992px) {
-	.satz_bereich { height: 26em; }
+	.satz_bereich { height: 25em; }
 }
 
 /* Large devices (large desktops, 1200px and up) */

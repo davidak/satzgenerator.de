@@ -5,6 +5,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 <script src="style/jquery.fittext.js"></script>
+<script src="style/Hyphenator.js"></script>
 
 <!-- Piwik --> 
 <!--<script type="text/javascript">

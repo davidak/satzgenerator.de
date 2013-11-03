@@ -15,7 +15,7 @@
 
 <div class="satz_bereich">
 <div class="satz">
-<h1 id="satz">{{get('satz', 'Fehler beim generieren des Satzes.')}}</h1>
+<h1 class="hyphenate" id="satz">{{get('satz', 'Fehler beim generieren des Satzes.')}}</h1>
 </div>
 </div>
 
@@ -34,9 +34,7 @@ Bitte aktiviere JavaScript, um Sätze bewerten und teilen zu können.
 </div>
 <!-- Satz wird sonst per JS eingefadet -->
 <style>
-@media(min-width:768px) {
   #satz { opacity: 1; }
-}
 </style>
 </noscript>
 
@@ -60,6 +58,10 @@ Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 
 <script type="text/javascript">
 
+// Silbentrennung per JS
+Hyphenator.config({ minwordlength: 14 });
+Hyphenator.run();
+
 // auf dem Desktop den Satz einfaden:
 // per CSS unsichtbar gemacht
 // hier hochschieben
@@ -68,28 +70,20 @@ if ( $(window).width() >= 768 ) {
 }
 
 // Satz so groß wie möglich, aber nicht mehr als 4 Zeilen
-if ( $("#satz").html().length < 40 ) {
-  $("#satz").fitText()
-}
-else if ( $("#satz").html().length < 80 ) {
-  $("#satz").fitText(1.2)
-}
-else {
-  $("#satz").fitText(1.6);
+zeichen = $("#satz").html().length;
+if ( $(window).width() <= 768 ) {
+  $("#satz").fitText( 0.48 + (zeichen / 100 * 1.6), { minFontSize: '20px', maxFontSize: '200px' })
+} else {
+  $("#satz").fitText( 0.46 + (zeichen / 100 * 1.4), { minFontSize: '30px', maxFontSize: '200px' })
 }
 
 // auf mobilen geräten kleiner als 480 kleine Buttons anzeigen
 if ( $(window).width() <= 768 ) {
-  $("#pos").addClass("btn-sm");
-  $("#neg").addClass("btn-sm");
-  $("#per").addClass("btn-sm");
-  $("#satz_neu").addClass("btn-sm");
+  $("#pos, #neg, #per, #satz_neu").addClass("btn-sm");
 }
 
 // auf dem Desktop den Satz einfaden
-if ( $(window).width() >= 768 ) {
-  $("#satz").animate({ marginTop: "0", opacity: 1 }, 500);
-}
+$("#satz").animate({ marginTop: "0", opacity: 1 }, 500);
 
 // Permalink anzeigen
 function show_permalink() {
@@ -147,8 +141,7 @@ function bewertung_anzeigen(positiv, negativ) {
 }
 
 function bewertung_deaktivieren() {
-  $("#pos").addClass("disabled");
-  $("#neg").addClass("disabled");
+  $("#pos, #neg").addClass("disabled");
 }
 
 </script>
