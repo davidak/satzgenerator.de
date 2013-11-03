@@ -15,17 +15,17 @@
 
 <h2>{{text}}</h2>
 
-<a id="satz_neu" class="btn btn-default" role="button" href="/"><i class="icon-refresh"></i> Neuer Satz</a>
+<a id="satz_neu" class="btn btn-default btn-fehler-404" role="button" href="/"><i class="icon-refresh"></i> Neuer Satz</a>
 
-</div> <!-- /content -->
+</div> <!-- #content -->
 
 </div> <!-- #wrap -->
 
 %include footer
 
 <script type="text/javascript">
-  $("h1").fitText(0.25);
-  $("h2").fitText(2);
+$("h1").fitText(0.25);
+$("h2").fitText(2);
 </script>
 
 </body>

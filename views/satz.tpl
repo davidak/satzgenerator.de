@@ -66,15 +66,12 @@ else {
 }
 
 // auf mobilen geräten kleiner als 480 kleine Buttons anzeigen
-function smallButtons() {
-  if ( $(window).width() <= 768 ) {
-    $("#pos").addClass("btn-sm");
-    $("#neg").addClass("btn-sm");
-    $("#per").addClass("btn-sm");
-    $("#satz_neu").addClass("btn-sm");
-  }
+if ( $(window).width() <= 768 ) {
+  $("#pos").addClass("btn-sm");
+  $("#neg").addClass("btn-sm");
+  $("#per").addClass("btn-sm");
+  $("#satz_neu").addClass("btn-sm");
 }
-smallButtons();
 
 // Permalink anzeigen
 function show_permalink() {
