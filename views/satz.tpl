@@ -29,9 +29,15 @@
 </form>
 
 <noscript>
-<div class="alert alert-warning">
+<div id="js-warn" class="alert alert-warning">
 Bitte aktiviere JavaScript, um Sätze bewerten und teilen zu können.
 </div>
+<!-- Satz wird sonst per JS eingefadet -->
+<style>
+@media(min-width:768px) {
+  #satz { opacity: 1; }
+}
+</style>
 </noscript>
 
 <div id="bewertung" class="progress"><!-- Bewertung anzeigen -->
@@ -54,6 +60,13 @@ Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 
 <script type="text/javascript">
 
+// auf dem Desktop den Satz einfaden:
+// per CSS unsichtbar gemacht
+// hier hochschieben
+if ( $(window).width() >= 768 ) {
+  $("#satz").css({ marginTop: "-100px" });
+}
+
 // Satz so groß wie möglich, aber nicht mehr als 4 Zeilen
 if ( $("#satz").html().length < 40 ) {
   $("#satz").fitText()
@@ -71,6 +84,11 @@ if ( $(window).width() <= 768 ) {
   $("#neg").addClass("btn-sm");
   $("#per").addClass("btn-sm");
   $("#satz_neu").addClass("btn-sm");
+}
+
+// auf dem Desktop den Satz einfaden
+if ( $(window).width() >= 768 ) {
+  $("#satz").animate({ marginTop: "0", opacity: 1 }, 500);
 }
 
 // Permalink anzeigen
@@ -132,6 +150,7 @@ function bewertung_deaktivieren() {
   $("#pos").addClass("disabled");
   $("#neg").addClass("disabled");
 }
+
 </script>
 
 </body>
