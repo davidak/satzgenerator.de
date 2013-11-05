@@ -7,6 +7,48 @@
 <script src="style/jquery.fittext.js"></script>
 <script src="style/Hyphenator.js"></script>
 
+<script type="text/javascript">
+
+$('.modal .checkbox input').change(function() {
+    if ( $("#satz").html() ) {
+      $("input[name='satz']").val($("#satz").html());
+    } else {
+      $("#checkbox-error").fadeIn();
+      setTimeout(function() {
+          $("#checkbox-error").fadeOut();
+          $('.modal .checkbox input').prop('checked',false);
+          $('.modal .checkbox input').prop("disabled", true);
+        }, 4500);
+    }
+});
+
+// Feedback-Formular abschicken
+$(".modal form").submit(function() {
+
+    $.ajax({
+           type: "POST",
+           url: "/feedback",
+           dataType: 'text',
+           data : $(".modal form").serialize(),
+           success: function(data) {
+              if (data) {
+                if (data == "erfolgreich") {
+                  $(".modal-footer .text-success").fadeIn();
+                  setTimeout(function() {
+					$('.modal').modal('hide')
+				}, 1500);
+                }
+                else {
+                $(".modal-footer .text-danger").fadeIn();
+                }
+              }
+          }
+    });
+    event.preventDefault();
+});
+
+</script>
+
 <!-- Piwik --> 
 <!--<script type="text/javascript">
 var pkBaseURL = (("https:" == document.location.protocol) ? "https://davidak.de/stats/" : "http://davidak.de/stats/");

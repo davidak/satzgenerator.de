@@ -5,6 +5,8 @@ from bottle import route, template, static_file, error, request, response, redir
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy import select, func
+import smtplib
+from email.mime.text import MIMEText
 from pyzufall.satz import satz
 from datetime import datetime, timedelta
 import random
@@ -20,6 +22,7 @@ debug = 1 # 0, 1
 #engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
 # test db
 engine = create_engine('mysql+mysqlconnector://root:@localhost/satzgenerator_test')#, echo=True) # debug
+#engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_test_satzgenerator')#, echo=True) # debug
 
 metadata = MetaData()
 
@@ -182,6 +185,30 @@ def satz_bewerten(uid):
 		satz_permanent_speichern(uid)
 	else:
 		return 'nein'
+
+@route('/feedback', method='POST')
+def feedback():
+	try:
+		empfaenger = "post@davidak.de"
+		nachricht = request.forms.get('text') + "\n\n-----"
+	
+		if request.forms.get('current'):
+			nachricht += "\n\nSatz: " + request.forms.get('satz').encode("utf-8")
+	
+		nachricht += "\n\nGesendet von IP " + request.get('REMOTE_ADDR')
+	
+		msg = MIMEText(nachricht)
+		msg['Subject'] = "Feedback zum Satzgenerator (" + request.forms.get('art') + ")"
+		msg['From'] = request.forms.get('name') + '<' + request.forms.get('email') + '>'
+		msg['To'] = empfaenger
+	
+		s = smtplib.SMTP('localhost')
+		s.sendmail('system@satzgenerator.de', empfaenger, msg.as_string())
+		s.quit()
+	
+		return 'erfolgreich'
+	except:
+		return 'nicht erfolgreich'
 
 @route('/beste-bewertung')
 def beste_bewertung():
