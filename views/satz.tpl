@@ -21,10 +21,10 @@
 
 <form id="bewerten" action="#" method="POST">
 <div class="btn-toolbar" role="toolbar">
-<button id="pos" type="button" name="pro" class="btn btn-success"><i class="icon-thumbs-up-alt"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
-<button id="neg" type="button" name="kontra" class="btn btn-danger"><i class="icon-thumbs-down-alt"></i></button>
+<button id="pos" type="button" name="pro" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
+<button id="neg" type="button" name="kontra" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
 <button id="per" type="button" name="permalink" onclick="show_permalink()" class="btn btn-primary">Teilen</button>
-<a id="satz_neu" class="btn btn-default" role="button" href="/"><i class="icon-refresh"></i> Neuer Satz</a>
+<a id="satz_neu" class="btn btn-default" role="button" href="/"><i class="fa fa-refresh"></i> Neuer Satz</a>
 </div>
 </form>
 

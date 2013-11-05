@@ -1,0 +1,85 @@
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+#wrap {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#content {
+	text-align: center;
+	max-width: 960px;
+	margin: 0 auto 0 auto;
+}
+
+.satz {
+	margin-top: 8%;
+}
+
+.bewertung {
+	margin: 20px;
+	font-size: 20px;
+}
+
+.satz h3 {
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.satz h3 a {
+	color: #505050;
+	text-decoration: none;
+	transition: 1s color; /*animates for 1 second*/
+	-moz-transition: 1s color; /*For Firefox < 16.0*/
+	-webkit-transition: 1s color; /*For WebKit (Chrome, Safari)*/
+}
+
+.satz h3 a:hover {
+	color: #333;
+	text-decoration: none;
+}
+
+.divider {
+    font-weight: 400;
+    display: inline-block;
+    width: 10%;
+    padding: 0 3px;
+    vertical-align: middle; 
+}
+
+.div-line {
+    border-bottom: 1px solid #b6b6b6;
+    border-top: 1px solid #b6b6b6;
+    width: 42%;
+    height: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+}
+
+/* Landscape phone to portrait tablet */
+@media(max-width: 767px) {
+
+}
+
+/* Small devices (tablets, 768px and up) */
+@media(min-width:768px) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media(min-width:992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media(min-width:1200px) {
+
+}
+
+@media(min-height: 900px) {
+
+}
