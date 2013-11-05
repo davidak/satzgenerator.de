@@ -7,6 +7,7 @@
 <script src="style/jquery.fittext.js"></script>
 <script src="style/Hyphenator.js"></script>
 
+<!-- Feedback-Formular -->
 <script type="text/javascript">
 
 // die Checkbox nur auf Satz-Seiten anzeigen
@@ -16,8 +17,8 @@ $( document ).ready(function() {
   }
 });
 
+// wenn die Checkbox aktiviert wird, den Satz in das hidden field kopieren, um ihn mitzuschicken
 $('.modal .checkbox input').change(function() {
-  // Der Satz wird dem hidden input field hinzugefügt, damit er mitgeschickt werden kann
   $("input[name='satz']").val($("#satz").html());
 });
 
@@ -44,7 +45,6 @@ $(".modal form").submit(function() {
     });
     event.preventDefault();
 });
-
 </script>
 
 <!-- Piwik --> 

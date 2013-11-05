@@ -21,7 +21,7 @@
 
 <form id="bewerten" action="#" method="POST">
 <div class="btn-toolbar" role="toolbar">
-<button id="pos" type="button" name="pro" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i><span class="hidden-480"> Gefällt mir</span></button> <!--disabled-->
+<button id="pos" type="button" name="pro" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i><span class="hidden-480"> Gefällt mir</span></button>
 <button id="neg" type="button" name="kontra" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
 <button id="per" type="button" name="permalink" onclick="show_permalink()" class="btn btn-primary">Teilen</button>
 <a id="satz_neu" class="btn btn-default" role="button" href="/"><i class="fa fa-refresh"></i> Neuer Satz</a>
@@ -38,15 +38,17 @@ Bitte aktiviere JavaScript, um Sätze bewerten und teilen zu können.
 </style>
 </noscript>
 
-<div id="bewertung" class="progress"><!-- Bewertung anzeigen -->
+<!-- Bewertung -->
+<div id="bewertung" class="progress">
 <div id="positiv_prozent_balken" class="progress-bar progress-bar-success" style="width: 0%;">0</div>
 <div id="negativ_prozent_balken" class="progress-bar progress-bar-danger" style="width: 0%;">0</div>
 </div>
 
+<!-- Permalink -->
 <input class="input-block-level" id="permalink" type="text" value="http://satzgenerator.de/{{get('satz_uid')}}">
 
-<div class="alert alert-danger" id="warnung">
- <button type="button" class="close" onclick="hide_warning()" aria-hidden="true">&times;</button>
+<div class="alert alert-danger alert-dismissable" id="warnung">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 </div>
 
@@ -91,9 +93,8 @@ function show_permalink() {
   $("#permalink").select();
 }
 
-// Fehlermeldung anzeigen oder verbergen
-function show_warning() { $("#warnung").css("display", "block"); }
-function hide_warning() { $("#warnung").css("display", "none"); }
+// Fehlermeldung anzeigen
+function show_warning() { $("#warnung").show(); }
 
 // Bewertung abschicken
 $("#pos, #neg, #per").click(function() {
@@ -127,8 +128,7 @@ negativ = {{get('negativ', '0')}};
 if (positiv > 0 || negativ > 0) { bewertung_anzeigen(positiv, negativ); }
 
 function bewertung_anzeigen(positiv, negativ) {
-  $("#bewertung").css("display", "block");
-
+  // Prozente berechnen
   var gesamt = parseInt(positiv) + parseInt(negativ);
   positiv_prozent = parseInt(positiv / gesamt * 100);
   negativ_prozent = parseInt(100 - positiv_prozent);
@@ -138,6 +138,8 @@ function bewertung_anzeigen(positiv, negativ) {
 
   $("#negativ_prozent_balken").css("width", negativ_prozent + "%");
   $("#negativ_prozent_balken").html(negativ);
+
+  $("#bewertung").show();
 }
 
 function bewertung_deaktivieren() {
