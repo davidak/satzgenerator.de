@@ -9,17 +9,16 @@
 
 <script type="text/javascript">
 
+// wenn kein Satz mitgeschickt werden kann, die Option garnicht erst anzeigen
+$( document ).ready(function() {
+  if (!$("#satz").html() ) {
+    $('.modal .checkbox').hide();
+  }
+});
+
 $('.modal .checkbox input').change(function() {
-    if ( $("#satz").html() ) {
-      $("input[name='satz']").val($("#satz").html());
-    } else {
-      $("#checkbox-error").fadeIn();
-      setTimeout(function() {
-          $("#checkbox-error").fadeOut();
-          $('.modal .checkbox input').prop('checked',false);
-          $('.modal .checkbox input').prop("disabled", true);
-        }, 4500);
-    }
+  // Der Satz wird dem hidden input field hinzugefügt, damit er mitgeschickt werden kann
+  $("input[name='satz']").val($("#satz").html());
 });
 
 // Feedback-Formular abschicken

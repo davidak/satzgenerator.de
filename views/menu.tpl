@@ -29,13 +29,13 @@
 
 <!-- Feedback-Formular -->
 <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Feedback zum Satzgenerator geben</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title" id="myModalLabel">Feedback zum Satzgenerator geben</h4>
+</div>
+<div class="modal-body">
       
 <form role="form">
 
@@ -50,11 +50,8 @@
 </div>
 
 <div class="checkbox">
-    <label>
-      <input type="checkbox" name="current"> Es geht um den aktuellen Satz. (mitschicken)
-    </label>
-  </div>
-<p class="text-danger" id="checkbox-error">Funktioniert nur auf Satz-Detailseiten, nicht in Übersichten.</p>
+  <label><input type="checkbox" name="current"> Es geht um den aktuellen Satz. (mitschicken)</label>
+</div>
 <input type="hidden" name="satz" value="">
 
 <textarea id="name" name="text" class="form-control" rows="6"></textarea>
@@ -69,16 +66,16 @@ Bitte gib noch deinen Namen und eine gültige E-Mail-Adresse an.
 <input type="email" class="form-control" name="email" placeholder="name@beispiel.de">
 </div>
 </div>
-      </div>
-      <div class="modal-footer">
-      	<div class="text-success pull-left">Nachricht erfolgreich verschickt.</div>
-      	<div class="text-danger pull-left">Nachricht konnte nicht verschickt werden.</div>
-        <button id="feedback-btn" type="submit" class="btn btn-primary pull-right">Abschicken</button>
-        <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+<div class="text-success pull-left">Nachricht erfolgreich verschickt.</div>
+<div class="text-danger pull-left">Nachricht konnte nicht verschickt werden.</div>
+<button id="feedback-btn" type="submit" class="btn btn-primary pull-right">Abschicken</button>
+<div class="clearfix"></div>
 
 </form>
 
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
