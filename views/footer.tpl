@@ -9,10 +9,10 @@
 
 <script type="text/javascript">
 
-// wenn kein Satz mitgeschickt werden kann, die Option garnicht erst anzeigen
+// die Checkbox nur auf Satz-Seiten anzeigen
 $( document ).ready(function() {
-  if (!$("#satz").html() ) {
-    $('.modal .checkbox').hide();
+  if ( $("#satz").html() ) {
+    $('.modal .checkbox').show();
   }
 });
 
@@ -23,7 +23,6 @@ $('.modal .checkbox input').change(function() {
 
 // Feedback-Formular abschicken
 $(".modal form").submit(function() {
-
     $.ajax({
            type: "POST",
            url: "/feedback",

@@ -17,7 +17,7 @@ body {
 textarea { resize:vertical; }
 
 /* erstmal ausblenden */
-.modal-footer .text-success, .modal-footer .text-danger { display: none }
+.modal-footer .text-success, .modal-footer .text-danger, .modal .checkbox { display: none }
 
 
 @media (max-width: 480px) {
