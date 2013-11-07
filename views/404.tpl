@@ -15,7 +15,7 @@
 
 <h2>{{text}}</h2>
 
-<a id="satz_neu" class="btn btn-default btn-fehler-404" role="button" href="/"><i class="icon-refresh"></i> Neuer Satz</a>
+<a id="satz_neu" class="btn btn-default btn-fehler-404" role="button" href="/neu"><i class="fa fa-refresh"></i> Neuer Satz</a>
 
 </div> <!-- #content -->
 

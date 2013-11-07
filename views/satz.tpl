@@ -24,7 +24,7 @@
 <button id="pos" type="button" name="pro" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i><span class="hidden-480"> Gefällt mir</span></button>
 <button id="neg" type="button" name="kontra" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
 <button id="per" type="button" name="permalink" onclick="show_permalink()" class="btn btn-primary">Teilen</button>
-<a id="satz_neu" class="btn btn-default" role="button" href="/"><i class="fa fa-refresh"></i> Neuer Satz</a>
+<a id="satz_neu" class="btn btn-default" role="button" href="/neu"><i class="fa fa-refresh"></i> Neuer Satz</a>
 </div>
 </form>
 
@@ -34,7 +34,8 @@ Bitte aktiviere JavaScript, um Sätze bewerten und teilen zu können.
 </div>
 <!-- Satz wird sonst per JS eingefadet -->
 <style>
-  #satz { opacity: 1; }
+  .satz_bereich { opacity: 1; }
+  .satz_bereich h1 { font-size: 500%; }
 </style>
 </noscript>
 
@@ -64,19 +65,14 @@ Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 Hyphenator.config({ minwordlength: 14 });
 Hyphenator.run();
 
+// Satz so groß wie möglich machen
+textFit($(".satz_bereich")[0], {alignHoriz: true, alignVert: true, multiLine: true, minFontSize: 20, maxFontSize: 200,});
+
 // auf dem Desktop den Satz einfaden:
 // per CSS unsichtbar gemacht
 // hier hochschieben
 if ( $(window).width() >= 768 ) {
-  $("#satz").css({ marginTop: "-100px" });
-}
-
-// Satz so groß wie möglich, aber nicht mehr als 4 Zeilen
-zeichen = $("#satz").html().length;
-if ( $(window).width() <= 768 ) {
-  $("#satz").fitText( 0.48 + (zeichen / 100 * 1.6), { minFontSize: '20px', maxFontSize: '200px' })
-} else {
-  $("#satz").fitText( 0.46 + (zeichen / 100 * 1.4), { minFontSize: '30px', maxFontSize: '200px' })
+  $(".satz").css({ marginTop: "-100px" });
 }
 
 // auf mobilen geräten kleiner als 480 kleine Buttons anzeigen
@@ -85,7 +81,7 @@ if ( $(window).width() <= 768 ) {
 }
 
 // auf dem Desktop den Satz einfaden
-$("#satz").animate({ marginTop: "0", opacity: 1 }, 500);
+$(".satz").animate({ marginTop: "0", opacity: 1 }, 500);
 
 // Permalink anzeigen
 function show_permalink() {

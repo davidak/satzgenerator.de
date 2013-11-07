@@ -145,6 +145,18 @@ def keks_zaehler():
 		response.set_cookie('visits', str(visits))
 
 @route('/')
+def startseite():
+	anzahl = 5
+	beste = engine.execute(db_satz.select().where(db_satz.c.pro >= db_satz.c.kontra).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
+	meiste = engine.execute(db_satz.select().order_by(db_satz.c.pro + db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
+	neuste = engine.execute(db_satz.select().order_by(db_satz.c.created.desc()).limit(anzahl)).fetchall()
+	return template('startseite', titel="Satzgenerator", beste=beste, meiste=meiste, neuste=neuste)
+
+@route('/impressum')
+def impressum():
+	return template('impressum', titel="Satzgenerator: Impressum")
+
+@route('/neu')
 def generator():
 	keks_zaehler()
 	redirect('/' + neuen_satz_generieren())
