@@ -9,12 +9,11 @@ body {
 	padding-top: 70px; /* 70px to make the container go all the way to the bottom of the topbar */
 }
 #footer { display: none; } /* mobil nicht anzeigen */
-.container {
-	padding: 0 0 0 0;
-}
 
 .btn-fehler-404 { margin: 20px; }
 textarea { resize:vertical; }
+
+ol { padding-left: 23px; }
 
 /* erstmal ausblenden */
 .modal-footer .text-success, .modal-footer .text-danger, .modal .checkbox { display: none }
@@ -30,6 +29,9 @@ textarea { resize:vertical; }
 
 /* Small devices (tablets, 768px and up) */
 @media(min-width:768px) {
+.container {
+	padding: 0 0 0 0;
+}
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
@@ -62,6 +64,8 @@ textarea { resize:vertical; }
 	vertical-align:middle;
 	padding: 0 20px 0 20px;
 }
+
+.btn-fehler-404 { margin-top: 80px; }
 
 }
 

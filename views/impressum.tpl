@@ -10,14 +10,8 @@
 %include menu
 
 <div id="content" class="container">
-Die Sätze wurden zufällig von einem Computerprogramm generiert.
-<br>Die darin genannten Personen sind also fiktiv<br>
-und es gibt keinen Bezug zu real existierenden Personen.<br>
-Sollte ein Satz deinen Namen enthalten und beleidigend wirken,<br>
-melde dich bitte bei der unten angegebenen E-Mail-Adresse.<br>
-Dieses Angebot dient der Unterhaltung und soll niemanden angreifen.<br>
 <br>
-Inhaltlich Verantwortlicher gemäß § 55 Abs. 1 RStV:<br>
+<p>Inhaltlich Verantwortlicher gemäß § 55 Abs. 1 RStV:<br>
 <br>
 David Kleuker<br>
 Holsten-Mündruper-Str. 4<br>
@@ -26,7 +20,20 @@ Holsten-Mündruper-Str. 4<br>
 E-Mail: post at davidak punkt de<br>
 <br>
 Technische Umsetzung und Programmierung:<br>
-David Kleuker
+David Kleuker</p><br>
+
+<h2>Hinweis</h2>
+<p align="justify">Die Sätze wurden zufällig von einem Computerprogramm generiert.
+Die darin genannten Personen sind also fiktiv
+und es gibt keinen Bezug zu real existierenden Personen.
+Sollte ein Satz deinen Namen enthalten und beleidigend wirken,
+melde dich bitte bei der oben angegebenen E-Mail-Adresse.
+Dieses Angebot dient der Unterhaltung und soll niemanden angreifen.</p>
+
+<h2>Datenschutz</h2>
+<p align="justify">Diese Website benutzt <a href="http://de.piwik.org/">Piwik</a>, eine Open Source-Software zur statistischen Auswertung der Besucherzugriffe. Piwik verwendet sog. “Cookies”, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieses Internetangebotes werden auf dem Server des Anbieters in Deutschland gespeichert. Die IP-Adresse wird sofort nach der Verarbeitung und vor deren Speicherung anonymisiert. Sie können die Installation der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich nutzen können.</p>
+
+<iframe frameborder="no" width="600px" height="200px" src="http://davidak.de/stats/index.php?module=CoreAdminHome&action=optOut&language=de"></iframe>
 
 </div> <!-- #content -->
 
