@@ -32,6 +32,8 @@ ol { padding-left: 23px; }
 .container {
 	padding: 0 0 0 0;
 }
+body { padding-top: 80px; } /* oben mehr Abstand zum Menü */
+
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;

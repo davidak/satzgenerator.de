@@ -11,7 +11,7 @@
 
 %include menu
 
-<div id="content" class="container">
+<div class="container">
 
 <div class="satz_bereich">
 <div class="satz">
@@ -53,7 +53,7 @@ Bitte aktiviere JavaScript, um Sätze bewerten und teilen zu können.
 Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 </div>
 
-</div> <!-- #content -->
+</div> <!-- .container -->
 
 </div> <!-- #wrap -->
 

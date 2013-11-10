@@ -10,7 +10,7 @@
 
 %include menu
 
-<div id="content" class="container">
+<div class="container">
 
 <h2>{{get('titel')}}</h2>
 
@@ -24,7 +24,7 @@
 <div class="divider">{{i}}</div>
 <span class="div-line" style="margin-bottom:0;"></span>
 
-<h3><a href="/{{satz.uid}}">{{satz.satz}}</a></h3>
+<h3><a class="hyphenate" href="/{{satz.uid}}">{{satz.satz}}</a></h3>
 
 <p class="bewertung">
 <i class="fa fa-thumbs-o-up"></i> {{str(satz.pro)}} 
@@ -34,7 +34,7 @@
 </div> <!-- .satz -->
 %end
 
-</div> <!-- #content -->
+</div> <!-- .container -->
 
 </div> <!-- #wrap -->
 
@@ -42,14 +42,9 @@
 
 <script type="text/javascript">
 
-// Satz so groß wie möglich, aber nicht mehr als 4 Zeilen
-if ( $(window).width() <= 768 ) {
-  $("h2").fitText(1.2)
-  $("h3").fitText(1.0);
-} else {
-  $("h2").fitText(1.4)
-  $("h3").fitText(1.5);
-}
+// Silbentrennung per JS
+Hyphenator.config({ minwordlength: 14 });
+Hyphenator.run();
 
 </script>
 

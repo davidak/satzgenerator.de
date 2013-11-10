@@ -1,8 +1,7 @@
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
-body, html, #content { height: 100%; }
-#content { text-align: center; width: 90%; }
-.container { max-width: 90%; }
+body, html, .container { height: 100%; }
+.container { text-align: center; width: 100%; }
 .satz_bereich { height: 8em; width: 100%; margin-top: 1em; margin-bottom: 1.5em; }
 .progress { width: 354px; margin-bottom: 20px; margin-left: auto; margin-right: auto; }
 .input-block-level { width: 354px; margin-bottom: 20px; margin-left:auto; margin-right:auto; }

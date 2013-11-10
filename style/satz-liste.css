@@ -5,14 +5,14 @@
 	padding-right: 20px;
 }
 
-#content {
+.container {
 	text-align: center;
 	max-width: 960px;
 	margin: 0 auto 0 auto;
 }
 
 .satz {
-	margin-top: 8%;
+	margin-top: 2.3em;
 }
 
 .bewertung {
@@ -25,8 +25,9 @@
 	margin-right: 2%;
 }
 
+h3 { font-size: 2em; }
+
 .satz h3 a {
-	color: #505050;
 	text-decoration: none;
 	transition: 1s color; /*animates for 1 second*/
 	-moz-transition: 1s color; /*For Firefox < 16.0*/
@@ -35,7 +36,7 @@
 
 .satz h3 a:hover {
 	color: #333;
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 .divider {
@@ -67,7 +68,8 @@
 
 /* Small devices (tablets, 768px and up) */
 @media(min-width:768px) {
-
+h2 { font-size: 4.5em; }
+h3 { font-size: 4em; }
 }
 
 /* Medium devices (desktops, 992px and up) */
