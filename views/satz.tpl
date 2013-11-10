@@ -93,7 +93,7 @@ function show_permalink() {
 function show_warning() { $("#warnung").show(); }
 
 // Bewertung abschicken
-$("#pos, #neg, #per").click(function() {
+$("#pos, #neg, #per").click(function(event) {
     $.ajax({
            type: "POST",
            url: "#",

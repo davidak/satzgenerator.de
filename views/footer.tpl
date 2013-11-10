@@ -24,7 +24,7 @@ $('.modal .checkbox input').change(function() {
 });
 
 // Feedback-Formular abschicken
-$(".modal form").submit(function() {
+$(".modal #feedback-btn").click(function(event) {
     $.ajax({
            type: "POST",
            url: "/feedback",
