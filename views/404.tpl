@@ -9,7 +9,7 @@
 
 %include menu
 
-<div id="content" class="container" style="text-align: center;">
+<div class="container" style="text-align: center;">
 
 <h1>404</h1>
 
@@ -17,7 +17,7 @@
 
 <a id="satz_neu" class="btn btn-default btn-fehler-404" role="button" href="/neu"><i class="fa fa-refresh"></i> Neuer Satz</a>
 
-</div> <!-- #content -->
+</div> <!-- .container -->
 
 </div> <!-- #wrap -->
 

@@ -5,9 +5,11 @@ html, body {
 }
 body {
 	background-image: url(/style/hintergrund.jpg);
-	background-repeat: repeat-x; background-color: #F5F6F7;
+	background-repeat: repeat-x;
+	background-color: #F5F6F7;
 	padding-top: 70px; /* 70px to make the container go all the way to the bottom of the topbar */
 }
+
 #footer { display: none; } /* mobil nicht anzeigen */
 
 .btn-fehler-404 { margin: 20px; }
