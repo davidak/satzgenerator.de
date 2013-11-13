@@ -15,11 +15,19 @@ body {
 .btn-fehler-404 { margin: 20px; }
 textarea { resize:vertical; }
 
+/* Aufzählung abschließend mit Überschrift */
 ol { padding-left: 23px; }
 
 /* erstmal ausblenden */
 .modal-footer .text-success, .modal-footer .text-danger, .modal .checkbox { display: none }
 
+.panel ul {
+	margin-bottom: 0px;
+}
+
+.navbar-form {
+	margin-top: 7px;
+}
 
 @media (max-width: 480px) {
 

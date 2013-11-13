@@ -12,17 +12,31 @@
   </div>
 
   <div class="collapse navbar-collapse" id="mehr">
-
- <ul class="nav navbar-nav navbar-left hidden-xs">
-  	<li><a data-toggle="modal" data-target="#feedback" href="#">Feedback</a></li>
-  </ul>
-
     <ul class="nav navbar-nav navbar-right">
-     	<li><a href="/beste-bewertung">Beste Bewertung</a></li>
-		<li><a href="/schlechte-bewertung">Schlechte Bewertung</a></li>
-		<li><a href="/meiste-bewertung">Meiste Bewertung</a></li>
-		<li><a href="/neue-saetze">Neue Sätze</a></li>
-		<li class="visible-xs"><a href="/impressum">Impressum</a></li> <!-- nur mobil, sonst im Footer -->
+      <li><a data-toggle="modal" data-target="#feedback" href="#">Feedback geben</a></li>
+
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ranglisten <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+<!--      <li class="divider"></li> -->
+          <li><a href="/beste-bewertung">Beste Bewertung</a></li>
+          <li><a href="/schlechte-bewertung">Schlechte Bewertung</a></li>
+          <li><a href="/meiste-bewertungen">Meiste Bewertungen</a></li>
+          <li><a href="/neue-saetze">Neue Sätze</a></li>
+        </ul>
+      </li>
+
+    <form class="navbar-form navbar-left hidden-xs" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Suchbegriff eingeben">
+      </div>
+      <button type="submit" class="btn btn-default">Suchen</button>
+    </form>
+
+<li class="visible-xs"><a href="/suche">Suche</a></li> <!-- nur mobil -->
+<li class="visible-xs"><a href="/impressum">Impressum</a></li> <!-- nur mobil, sonst im Footer -->
+    </ul>
+
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>

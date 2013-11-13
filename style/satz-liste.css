@@ -39,7 +39,7 @@ h3 { font-size: 2em; }
 	text-decoration: underline;
 }
 
-.divider {
+.satz .divider {
     font-weight: 400;
     display: inline-block;
     width: 10%;

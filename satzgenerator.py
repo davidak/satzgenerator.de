@@ -24,7 +24,7 @@ debug = 1 # 0, 1
 engine = create_engine('mysql+mysqlconnector://root:@localhost/satzgenerator_test')#, echo=True) # debug
 #engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_test_satzgenerator')#, echo=True) # debug
 
-metadata = MetaData()
+metadata = MetaData(engine)
 
 # Datenbank-Schema
 db_satz = Table('satz', metadata,
@@ -45,7 +45,7 @@ db_benutzer = Table('benutzer', metadata,
 )
 
 # Tabellen erzeugen, falls sie nicht existieren
-metadata.create_all(engine)
+metadata.create_all()
 
 def jetzt():
 	return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -146,11 +146,16 @@ def keks_zaehler():
 
 @route('/')
 def startseite():
+	anzahl_saetze = engine.execute(select([func.count()]).select_from(db_satz)).scalar()
+	gute_bewertung = engine.execute(select([func.sum(db_satz.c.pro)])).scalar()
+	schlechte_bewertung = engine.execute(select([func.sum(db_satz.c.kontra)])).scalar()
+	gesamt_bewertungen = gute_bewertung + schlechte_bewertung
+
 	anzahl = 5
 	beste = engine.execute(db_satz.select().where(db_satz.c.pro >= db_satz.c.kontra).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
 	meiste = engine.execute(db_satz.select().order_by(db_satz.c.pro + db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
 	neuste = engine.execute(db_satz.select().order_by(db_satz.c.created.desc()).limit(anzahl)).fetchall()
-	return template('startseite', titel="Satzgenerator", beste=beste, meiste=meiste, neuste=neuste)
+	return template('startseite', titel="Satzgenerator", anzahl_saetze=anzahl_saetze, gute=gute_bewertung, schlechte=schlechte_bewertung, gesamt=gesamt_bewertungen, beste=beste, meiste=meiste, neuste=neuste)
 
 @route('/impressum')
 def impressum():

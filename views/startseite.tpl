@@ -11,11 +11,34 @@
 
 <div id="content" class="container">
 
-<p>Der Satzgenerator erzeugt zufällige Sätze, die zum Teil lustig sind. Sieh dir <a href="/beste-bewertung">die Sätze mit den besten Bewertungen</a>, <a href="/schlechte-bewertung">den schlechtesten Bewertungen</a>, <a href="/meiste-bewertung">den meisten Bewertungen</a> oder <a href="/neue-saetze">die neusten Sätze</a> an. Du kannst auch <a href="/neu">einen neuen Satz generieren</a> oder <a href="/zufaelliger-satz">einen zufälligen Satz aus der Datenbank aufrufen</a>.</p>
+<div class="row">
+
+<div class="col-md-8">
+<p class="lead">Der Satzgenerator erzeugt zufällige Sätze, die zum Teil lustig sind. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+</div>
+
+<div class="col-md-4">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Statistik</h3>
+  </div>
+  <div class="panel-body">
+  	<ul class="list-unstyled">
+    <li>{{anzahl_saetze}} Sätze in der Datenbank</li>
+	<li>{{gesamt}} Bewertungen insgesamt,</li>
+	<li>davon {{gute}} gute und {{schlechte}} schlechte</li>
+	</ul>
+  </div>
+</div>
+
+</div>
+
+</div> <!-- .row -->
 
 <div class="row">
 
-<div class="col-md-4">
+<div class="col-md-6">
 <h2>Beste Bewertung</h2>
 <ol>
 %for satz in beste:
@@ -24,17 +47,8 @@
 </ol>
 </div>
 
-<div class="col-md-4">
-<h2>Meiste Bewertung</h2>
-<ol>
-%for satz in meiste:
-<li><a href="{{satz.uid}}">{{satz.satz}}</a></li>
-%end
-</ol>
-</div>
-
-<div class="col-md-4">
-<h2>Neue Sätze</h2>
+<div class="col-md-6">
+<h2>Neuste Sätze</h2>
 <ol>
 %for satz in neuste:
 <li><a href="{{satz.uid}}">{{satz.satz}}</a></li>
