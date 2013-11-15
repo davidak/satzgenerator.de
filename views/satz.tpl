@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 %include head titel=titel
-<link href="style/satz.css" rel="stylesheet">
+<link href="/style/satz.css" rel="stylesheet">
 </head>
 <body>
 

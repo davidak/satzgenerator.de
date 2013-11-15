@@ -227,29 +227,50 @@ def feedback():
 	except:
 		return 'nicht erfolgreich'
 
+@route('/suche', method='POST')
+def suche_redirect():
+	suchbegriff = request.forms.get('suchbegriff')
+	redirect('/suche/' + suchbegriff )
+
+@route('/suche/<suchbegriff>')
+def suche(suchbegriff):
+	if suchbegriff:
+		pattern = '%' + suchbegriff.replace(' ', '%') + '%'
+		anzahl = 200
+		satze = engine.execute(db_satz.select().where(db_satz.c.satz.ilike(pattern)).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
+		if satze:
+			return template('rangliste', titel='Suche nach "' + suchbegriff + '"', satze=satze)
+		else:
+			return template('rangliste', titel='Die Suche nach "' + suchbegriff + '" gab kein Ergebnis.', satze=satze)
+	else:
+		satze = ''
+		return template('rangliste', titel='Bitte gib einen Suchbegriff ein.', satze=satze)
+
+# Weiterleitung auf alte URLs
+
 @route('/beste-bewertung')
 def beste_bewertung():
 	anzahl = 50
 	satze = engine.execute(db_satz.select().where(db_satz.c.pro >= db_satz.c.kontra).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
-	return template('stats', titel="Die Sätze mit den besten Bewertungen", satze=satze)
+	return template('rangliste', titel="Die Sätze mit den besten Bewertungen", satze=satze)
 
 @route('/schlechte-bewertung')
 def schlechte_bewertung():
 	anzahl = 50
 	satze = engine.execute(db_satz.select().where(db_satz.c.kontra >= db_satz.c.pro).order_by(db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
-	return template('stats', titel="Die Sätze mit den schlechtesten Bewertungen", satze=satze)
+	return template('rangliste', titel="Die Sätze mit den schlechtesten Bewertungen", satze=satze)
 
-@route('/meiste-bewertung')
-def meiste_bewertung():
+@route('/meiste-bewertungen')
+def meiste_bewertungen():
 	anzahl = 50
 	satze = engine.execute(db_satz.select().order_by(db_satz.c.pro + db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
-	return template('stats', titel="Die Sätze mit den meisten Bewertungen", satze=satze)
+	return template('rangliste', titel="Die Sätze mit den meisten Bewertungen", satze=satze)
 
 @route('/neue-saetze')
 def neue_saetze():
 	anzahl = 50
 	satze = engine.execute(db_satz.select().order_by(db_satz.c.created.desc()).limit(anzahl)).fetchall()
-	return template('neue', titel="Die neusten Sätze", satze=satze)
+	return template('rangliste', titel="Die neusten Sätze", satze=satze)
 
 @route('/style/<filepath:path>')
 def server_static(filepath):

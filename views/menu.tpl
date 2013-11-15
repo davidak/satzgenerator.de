@@ -26,9 +26,9 @@
         </ul>
       </li>
 
-    <form class="navbar-form navbar-left hidden-xs" role="search">
+    <form class="navbar-form navbar-left hidden-xs" role="search" method="POST" action="/suche">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Suchbegriff eingeben">
+        <input type="text" name="suchbegriff" class="form-control" placeholder="Suchbegriff eingeben">
       </div>
       <button type="submit" class="btn btn-default">Suchen</button>
     </form>

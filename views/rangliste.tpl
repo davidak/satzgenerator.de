@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 %include head titel='Satzgenerator: ' + titel
-<link href="style/liste.css" rel="stylesheet">
+<link href="/style/rangliste.css" rel="stylesheet">
 </head>
 <body>
 
