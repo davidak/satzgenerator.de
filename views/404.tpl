@@ -23,6 +23,8 @@
 
 %include footer
 
+<script src="style/jquery.fittext.js"></script>
+
 <script type="text/javascript">
 $("h1").fitText(0.25);
 $("h2").fitText(2);

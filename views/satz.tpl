@@ -59,6 +59,9 @@ Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 
 %include footer
 
+<script src="style/Hyphenator.js"></script>
+<script src="style/textFit.min.js"></script>
+
 <script type="text/javascript">
 
 // Silbentrennung per JS
@@ -143,6 +146,8 @@ function bewertung_deaktivieren() {
 }
 
 </script>
+
+%include piwik
 
 </body>
 </html>

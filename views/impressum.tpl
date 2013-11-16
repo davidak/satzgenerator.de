@@ -43,6 +43,7 @@ Dieses Angebot dient der Unterhaltung und soll niemanden angreifen.</p>
 </div> <!-- #wrap -->
 
 %include footer
+%include piwik
 
 </body>
 </html>

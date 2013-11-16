@@ -67,6 +67,7 @@
 </div> <!-- #wrap -->
 
 %include footer
+%include piwik
 
 </body>
 </html>

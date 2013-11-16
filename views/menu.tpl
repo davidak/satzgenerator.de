@@ -18,7 +18,6 @@
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ranglisten <b class="caret"></b></a>
         <ul class="dropdown-menu">
-<!--      <li class="divider"></li> -->
           <li><a href="/beste-bewertung">Beste Bewertung</a></li>
           <li><a href="/schlechte-bewertung">Schlechte Bewertung</a></li>
           <li><a href="/meiste-bewertungen">Meiste Bewertungen</a></li>
@@ -35,8 +34,6 @@
 
 <li class="visible-xs"><a href="/suche">Suche</a></li> <!-- nur mobil -->
 <li class="visible-xs"><a href="/impressum">Impressum</a></li> <!-- nur mobil, sonst im Footer -->
-    </ul>
-
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>

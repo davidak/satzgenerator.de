@@ -232,6 +232,7 @@ def suche_redirect():
 	suchbegriff = request.forms.get('suchbegriff')
 	redirect('/suche/' + suchbegriff )
 
+@route('/suche/')
 @route('/suche', method='GET')
 def suchformular():
 	satze = ''
@@ -242,11 +243,11 @@ def suche(suchbegriff):
 	pattern = '%' + suchbegriff.replace(' ', '%') + '%'
 	anzahl = 200
 	satze = engine.execute(db_satz.select().where(db_satz.c.satz.ilike(pattern)).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
+	suchergebnisse = len(satze)
 	if satze:
-		return template('rangliste', titel='Suche nach "' + suchbegriff + '"', satze=satze)
+		return template('suchergebnis', titel='Suche nach "' + suchbegriff + '"', satze=satze, suchbegriff=suchbegriff, suchergebnisse=suchergebnisse)
 	else:
-		return template('rangliste', titel='Die Suche nach "' + suchbegriff + '" gab kein Ergebnis.', satze=satze)
-
+		return template('suchergebnis', titel='Die Suche nach "' + suchbegriff + '" gab kein Ergebnis.', satze=satze, suchbegriff=suchbegriff, suchergebnisse=suchergebnisse)
 
 # Weiterleitung auf alte URLs
 

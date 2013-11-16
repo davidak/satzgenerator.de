@@ -1,6 +1,9 @@
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
-#wrap { padding: 0 20px 0 20px; }
+#wrap {
+	padding-left: 20px;
+	padding-right: 20px;
+}
 
 .container {
 	text-align: center;
@@ -62,7 +65,10 @@ h3 { font-size: 2em; }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-#wrap { padding: 0 5px 0 5px; }
+#wrap {
+	padding-left: 5px;
+	padding-right: 5px;
+}
 }
 
 /* Landscape phone to portrait tablet */
