@@ -52,7 +52,7 @@
 
 %include footer
 
-<script src="style/Hyphenator.js"></script>
+<script src="/style/Hyphenator.js"></script>
 
 %include piwik
 
