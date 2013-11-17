@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Gentium Book Basic';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Gentium Book Basic'), local('GentiumBookBasic'), url(/style/GentiumBookBasic.woff) format('woff');
+}
+
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 html, body {
@@ -8,6 +15,14 @@ body {
 	background-repeat: repeat-x;
 	background-color: #F5F6F7;
 	padding-top: 70px; /* 70px to make the container go all the way to the bottom of the topbar */
+	font-family: 'Gentium Book Basic', Georgia, serif;
+	font-size: 19px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	font-family: 'Gentium Book Basic', Georgia, serif;
+	font-weight: 500;
+	line-height: 1.1;
 }
 
 #footer { display: none; } /* mobil nicht anzeigen */
@@ -16,20 +31,27 @@ body {
 textarea { resize:vertical; }
 
 /* Aufzählung abschließend mit Überschrift */
-ol { padding-left: 23px; }
+ol { padding-left: 26px; }
 
 /* erstmal ausblenden */
 .modal-footer .text-success, .modal-footer .text-danger, .modal .checkbox { display: none }
 
-.panel ul {
-	margin-bottom: 0px;
+.panel ul { margin-bottom: 0px; }
+.navbar-form { margin-top: 7px; }
+
+.navbar-brand { font-size: 32px; }
+
+.panel-title {
+	font-size: 24px;
+	font-weight: bold;
 }
 
-.navbar-form {
-	margin-top: 7px;
-}
+.panel-body { font-size: 22px; }
+
+ol { font-size: 22px; }
 
 @media (max-width: 480px) {
+	.panel-body {font-size: 18px;}
 }
 
 /* Landscape phone to portrait tablet */
@@ -62,13 +84,8 @@ body { padding-top: 80px; } /* oben mehr Abstand zum Menü */
 	background-color: #f0f0f0;
 }
 
-#footer p {
-	font-size: 12px;
-}
-
-.nav a {
-	font-size: 15px;
-}
+#footer p { font-size: 13px; }
+.nav a { font-size: 16px; }
 
 .credit {
 	display: table-cell;
@@ -78,16 +95,17 @@ body { padding-top: 80px; } /* oben mehr Abstand zum Menü */
 
 .btn-fehler-404 { margin-top: 80px; }
 
+.lead { font-size: 28px; }
+
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media(min-width:992px) {
-#footer p, .nav a {
-	font-size: 17px;
-}
+#footer p { font-size: 17px; }
+.nav a { font-size: 20px; }
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media(min-width:1200px) {
-
+#footer p { font-size: 20px; }
 }

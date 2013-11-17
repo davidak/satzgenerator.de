@@ -6,7 +6,7 @@
 <meta name="author" content="davidak">
 <meta name="robots" content="index,follow">
 
-<link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/readable/bootstrap.min.css" rel="stylesheet">
+<link href="/style/bootstrap.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
 <link href="/style/base.css" rel="stylesheet">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

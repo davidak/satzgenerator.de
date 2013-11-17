@@ -229,7 +229,7 @@ def feedback():
 @route('/suche', method='POST')
 def suche_redirect():
 	suchbegriff = request.forms.get('suchbegriff')
-	redirect('/suche/' + suchbegriff )
+	redirect('/suche/' + suchbegriff)
 
 @route('/suche/')
 @route('/suche', method='GET')

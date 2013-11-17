@@ -65,6 +65,7 @@ h3 { font-size: 2em; }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+h3 { font-size: 1.8em; }
 #wrap {
 	padding-left: 5px;
 	padding-right: 5px;
