@@ -46,6 +46,8 @@
 </div> <!-- .satz -->
 %end
 
+<button type="button" class="btn btn-primary btn-sm scrollup">nach oben</button>
+
 </div> <!-- .container -->
 
 </div> <!-- #wrap -->
@@ -61,6 +63,19 @@
 // Silbentrennung per JS
 Hyphenator.config({ minwordlength: 14 });
 Hyphenator.run();
+
+$(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('.scrollup').fadeIn();
+        } else {
+            $('.scrollup').fadeOut();
+        }
+});
+
+$('.scrollup').click(function(){
+    $("html, body").animate({ scrollTop: 0 }, 600);
+    return false;
+});
 
 </script>
 

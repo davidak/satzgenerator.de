@@ -11,6 +11,13 @@
 	margin: 0 auto 0 auto;
 }
 
+.scrollup{
+    position:fixed;
+    bottom:100px;
+    right:100px;
+    display:none;
+}
+
 .form-inline { margin-top: 20px; }
 
 .form-inline input {
@@ -69,6 +76,11 @@ h3 { font-size: 1.8em; }
 #wrap {
 	padding-left: 5px;
 	padding-right: 5px;
+}
+.scrollup{
+    bottom: 20px;
+    right: inherit;
+    left: 20px;
 }
 }
 
