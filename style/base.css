@@ -47,6 +47,7 @@ ol { padding-left: 26px; }
 }
 
 .panel-body { font-size: 22px; }
+.modal-title { font-size: 28px; }
 
 ol { font-size: 22px; }
 
@@ -108,4 +109,12 @@ body { padding-top: 80px; } /* oben mehr Abstand zum Menü */
 /* Large devices (large desktops, 1200px and up) */
 @media(min-width:1200px) {
 #footer p { font-size: 20px; }
+}
+
+@media(min-height: 900px) {
+/* Scrollbar beim Modal nur, wenn nötig, also meist bei kleinen Bildschirmen */
+.modal { overflow-y: auto; }
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+margin-right: 0px;
+}
 }

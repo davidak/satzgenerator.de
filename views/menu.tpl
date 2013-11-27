@@ -13,7 +13,7 @@
 
   <div class="collapse navbar-collapse" id="mehr">
     <ul class="nav navbar-nav navbar-right">
-      <li><a data-toggle="modal" data-target="#feedback" href="#">Feedback geben</a></li>
+      <li><a class="hidden-xs" data-toggle="modal" data-target="#feedback" href="#">Feedback geben</a></li>
 
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ranglisten <b class="caret"></b></a>
@@ -28,7 +28,7 @@
       <div class="form-group">
         <input type="text" name="suchbegriff" class="form-control" placeholder="Suchbegriff eingeben">
       </div>
-      <button type="submit" class="btn btn-default">Suchen</button>
+      <button type="submit" class="btn btn-primary">Suchen</button>
     </form>
 
 <li class="visible-xs"><a href="/suche">Suche</a></li> <!-- nur mobil -->
@@ -69,10 +69,10 @@
 Bitte gib noch deinen Namen und eine gültige E-Mail-Adresse an.
 <br><br>
 <div class="row">
-<div class="col-xs-6">
+<div class="col-md-6">
 <input type="text" class="form-control" name="name" placeholder="Max Mustermann">
 </div>
-<div class="col-xs-6">
+<div class="col-md-6">
 <input type="email" class="form-control" name="email" placeholder="name@beispiel.de">
 </div>
 </div>
