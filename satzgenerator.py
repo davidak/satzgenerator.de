@@ -260,11 +260,19 @@ def schlechte_bewertung():
 	satze = engine.execute(db_satz.select().where(db_satz.c.kontra >= db_satz.c.pro).order_by(db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
 	return template('rangliste', titel="Die Sätze mit den schlechtesten Bewertungen", satze=satze)
 
-@route('/neue-saetze')
+@route('/neuste-saetze')
 def neue_saetze():
 	anzahl = 50
 	satze = engine.execute(db_satz.select().order_by(db_satz.c.created.desc()).limit(anzahl)).fetchall()
 	return template('rangliste', titel="Die neusten Sätze", satze=satze)
+
+@route('/neue-saetze')
+def redirect_neuste():
+	redirect('/neuste-saetze', 301)
+
+@route('/meiste-bewertung')
+def refirect_startseite():
+	redirect('/', 301)
 
 @route('/style/<filepath:path>')
 def server_static(filepath):

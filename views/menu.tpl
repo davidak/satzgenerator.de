@@ -20,7 +20,7 @@
         <ul class="dropdown-menu">
           <li><a href="/beste-bewertung">Beste Bewertung</a></li>
           <li><a href="/schlechte-bewertung">Schlechte Bewertung</a></li>
-          <li><a href="/neue-saetze">Neue Sätze</a></li>
+          <li><a href="/neuste-saetze">Neuste Sätze</a></li>
         </ul>
       </li>
 

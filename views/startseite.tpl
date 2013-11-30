@@ -14,7 +14,7 @@
 <div class="row">
 
 <div class="col-md-8">
-<p class="lead">Der Satzgenerator erzeugt zufällige Sätze, die zum Teil lustig sind. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+<p class="lead">Der Satzgenerator erzeugt absurde Sätze, indem zufällige Worte anhand von Satzschemata zusammengefügt werden.</p>
 </div>
 
 <div class="col-md-4">
@@ -34,6 +34,13 @@
 
 </div>
 
+</div> <!-- .row -->
+
+<div class="row">
+<div class="col-md-12">
+<p>Die oft lustigen Sätze können bewertet und per Link z.B. über E-Mail, Instant-Messanger oder soziale Netzwerke geteilt werden. Auch eine Rangliste mit den besten, schlechtesten oder neusten Sätzen ist vorhanden. Mit der Suche können Sätze aus der Datenbank mithilfe von Suchbegriffen gefunden werden. Fällt dir bei einem Satz ein grammatikalischer Fehler auf, hast Verbesserungsvorschläge oder andere Kritik, zöget nicht das Feedback-Formular zu benutzen! Natürlich ist auch Lob immer gerne gesehen.
+<br><br><strong>Generier ein paar Sätze und zeig die witzigsten deinen Freunden!<strong></p>
+</div>
 </div> <!-- .row -->
 
 <div class="row">

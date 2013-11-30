@@ -96,7 +96,8 @@ body { padding-top: 80px; } /* oben mehr Abstand zum Menü */
 
 .btn-fehler-404 { margin-top: 80px; }
 
-.lead { font-size: 28px; }
+.lead { font-size: 43px; }
+p { font-size: 22px; }
 
 }
 
