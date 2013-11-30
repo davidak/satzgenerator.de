@@ -57,6 +57,7 @@ ol { font-size: 22px; }
 
 /* Landscape phone to portrait tablet */
 @media(max-width: 767px) {
+	.lead { font-size: 26px; }
 }
 
 /* Small devices (tablets, 768px and up) */

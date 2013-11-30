@@ -17,7 +17,7 @@
 %if satze == '':
 	<form class="form-inline" role="search" method="POST" action="/suche">
 	   	<input type="text" name="suchbegriff" class="form-control" placeholder="Suchbegriff eingeben">
-	    <button type="submit" class="btn btn-default">Suchen</button>
+	    <button type="submit" class="btn btn-primary">Suchen</button>
 	</form>
 %end
 
