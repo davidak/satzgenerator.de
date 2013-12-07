@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from bottle import route, template, static_file, error, request, response, redirect, default_app, run, debug
+from bottle import route, template, static_file, error, request, response, redirect, default_app#, run, debug
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy import select, func
@@ -16,12 +16,12 @@ import sys
 
 random.seed() # Zufallsgenerator initialisieren
 
-debug = 1 # 0, 1
+debug = 0 # 0, 1
 
 # Verbindung zur MySQL-Datenbank herstellen
-#engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
+engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
 # test db
-engine = create_engine('mysql+mysqlconnector://root:@localhost/satzgenerator_test')#, echo=True) # debug
+#engine = create_engine('mysql+mysqlconnector://root:@localhost/satzgenerator_test')#, echo=True) # debug
 #engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_test_satzgenerator')#, echo=True) # debug
 
 metadata = MetaData(engine)
