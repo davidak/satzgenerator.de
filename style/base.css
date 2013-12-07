@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 textarea { resize:vertical; }
 
 /* Aufzählung abschließend mit Überschrift */
-ol { padding-left: 26px; }
+ol { padding-left: 30px; }
 
 /* erstmal ausblenden */
 .modal-footer .text-success, .modal-footer .text-danger, .modal .checkbox { display: none }
@@ -95,8 +95,6 @@ body { padding-top: 80px; } /* oben mehr Abstand zum Menü */
 	padding: 0 20px 0 20px;
 }
 
-.btn-fehler-404 { margin-top: 80px; }
-
 .lead { font-size: 43px; }
 p { font-size: 22px; }
 
@@ -114,9 +112,8 @@ p { font-size: 22px; }
 }
 
 @media(min-height: 900px) {
-/* Scrollbar beim Modal nur, wenn nötig, also meist bei kleinen Bildschirmen */
-.modal { overflow-y: auto; }
-body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
-margin-right: 0px;
-}
+	/* Scrollbar beim Modal nur, wenn nötig, also meist bei kleinen Bildschirmen */
+	.modal { overflow-y: auto; }
+	body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom { margin-right: 0px; }
+	.btn-fehler-404 { margin-top: 80px; }
 }

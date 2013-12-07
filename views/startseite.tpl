@@ -37,9 +37,9 @@
 </div> <!-- .row -->
 
 <div class="row">
+
 <div class="col-md-12">
-<p>Die oft lustigen Sätze können bewertet und per Link z.B. über E-Mail, Instant-Messanger oder soziale Netzwerke geteilt werden. Auch eine Rangliste mit den besten, schlechtesten oder neusten Sätzen ist vorhanden. Mit der Suche können Sätze aus der Datenbank mithilfe von Suchbegriffen gefunden werden. Fällt dir bei einem Satz ein grammatikalischer Fehler auf, hast Verbesserungsvorschläge oder andere Kritik, zöget nicht das Feedback-Formular zu benutzen! Natürlich ist auch Lob immer gerne gesehen.
-<br><br><strong>Generier ein paar Sätze und zeig die witzigsten deinen Freunden!<strong></p>
+<p>Die oft lustigen Sätze können bewertet und per Link z.B. über soziale Netzwerke, Instant-Messanger oder E-Mail geteilt werden. Auch eine Rangliste mit den besten, schlechtesten oder neusten Sätzen ist vorhanden. Für jede Art von Lob und Kritik gibt es das Feedback-Formular. Wenn dir z.B. ein grammatikalischer Fehler bei einem Satz auffällt, kannst du ihn schnell an den Entwickler weiterleiten und damit zur Verbesserung des Satzgenerators beitragen.</p>
 </div>
 </div> <!-- .row -->
 
