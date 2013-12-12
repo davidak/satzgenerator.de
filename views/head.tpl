@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>{{titel or 'Satzgenerator'}}</title>
-<meta name="description" content="Der beste deutsche Satzgenerator im Internet. Erzeugt absurde Sätze, indem zufällige Worte anhand von Satzschemata zusammengefügt werden.">
+<meta name="description" content="Der beste deutsche Satzgenerator im Internet. Erzeugt absurde Sätze, indem zufällige Wörter anhand von Satzschemata zusammengefügt werden.">
 <meta name="keywords" content="Satzgenerator, Satz generieren, Sätze, Fakten, Open Source, Python, deutsch, absurd, lustig, bewerten" />
 <meta name="author" content="davidak">
 <meta name="robots" content="index,follow">

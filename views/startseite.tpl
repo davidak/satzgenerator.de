@@ -14,7 +14,7 @@
 <div class="row">
 
 <div class="col-md-8">
-<p class="lead">Der Satzgenerator erzeugt absurde Sätze, indem zufällige Worte anhand von Satzschemata zusammengefügt werden.</p>
+<p class="lead">Der Satzgenerator erzeugt absurde Sätze, indem zufällige Wörter anhand von Satzschemata zusammengefügt werden.</p>
 </div>
 
 <div class="col-md-4">
