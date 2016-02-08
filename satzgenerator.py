@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from bottle import route, template, static_file, error, request, response, redirect, default_app#, run, debug
+from bottle import route, template, static_file, error, request, response, redirect, default_app
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy import select, func
@@ -297,4 +297,5 @@ def error404(error):
 
 # allow running from the command line
 if __name__ == '__main__':
-	run(debug=True, host='10.0.0.8', port=8081, reloader=True)
+	from bottle import run, debug
+	run(debug=True, host='127.0.0.1', port=8081, reloader=True)
