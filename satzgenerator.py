@@ -166,8 +166,8 @@ def keks_zaehler():
 @route('/')
 def startseite():
 	anzahl_saetze = engine.execute(select([func.count()]).select_from(db_satz)).scalar()
-	gute_bewertung = engine.execute(select([func.sum(db_satz.c.pro)])).scalar()
-	schlechte_bewertung = engine.execute(select([func.sum(db_satz.c.kontra)])).scalar()
+	gute_bewertung = engine.execute(select([func.sum(db_satz.c.pro)])).scalar() or 0
+	schlechte_bewertung = engine.execute(select([func.sum(db_satz.c.kontra)])).scalar() or 0
 	gesamt_bewertungen = gute_bewertung + schlechte_bewertung
 
 	anzahl = 5
