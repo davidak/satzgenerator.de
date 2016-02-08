@@ -11,15 +11,34 @@ from pyzufall.satz import satz
 from datetime import datetime, timedelta
 import random
 import sys
+try:
+	import configparser
+except:
+	import ConfigParser as configparser  # Python 2.7
 
-#debug(mode=True)
+# Konfiguration laden
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-random.seed() # Zufallsgenerator initialisieren
+if config.get('general', 'database') == 'mysql':
+	user = config.get('mysql', 'user')
+	password = config.get('mysql', 'password')
+	host = config.get('mysql', 'host')
+	database = config.get('mysql', 'database')
+	engine = create_engine('mysql+mysqlconnector://{}:{}@{}/{}'.format(user, password, host, database))
+elif config.get('general', 'database') == 'sqlite':
+	filename = config.get('sqlite', 'file')
+	engine = create_engine('sqlite:///' + filename)
+else:
+	raise Exception('No Database configured!')
+
+# Zufallsgenerator initialisieren
+random.seed()
 
 debug = 0 # 0, 1
 
 # Verbindung zur MySQL-Datenbank herstellen
-engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
+#engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
 # test db
 #engine = create_engine('mysql+mysqlconnector://root:@localhost/satzgenerator_test')#, echo=True) # debug
 #engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_test_satzgenerator')#, echo=True) # debug

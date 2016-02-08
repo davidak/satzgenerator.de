@@ -1,0 +1,13 @@
+# uncomment needed options
+
+[general]
+database=sqlite
+
+[sqlite]
+file=satzgenerator.db
+
+#[mysql]
+#user=
+#password=
+#database=
+#host=
