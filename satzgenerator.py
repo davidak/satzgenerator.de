@@ -16,6 +16,8 @@ try:
 except:
 	import ConfigParser as configparser  # Python 2.7
 
+debug = 0 # 0, 1
+
 # Konfiguration laden
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -31,17 +33,6 @@ elif config.get('general', 'database') == 'sqlite':
 	engine = create_engine('sqlite:///' + filename)
 else:
 	raise Exception('No Database configured!')
-
-# Zufallsgenerator initialisieren
-random.seed()
-
-debug = 0 # 0, 1
-
-# Verbindung zur MySQL-Datenbank herstellen
-#engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_satzgenerator')#, echo=True) # debug
-# test db
-#engine = create_engine('mysql+mysqlconnector://root:@localhost/satzgenerator_test')#, echo=True) # debug
-#engine = create_engine('mysql+mysqlconnector://davidak:9335be4gnjcvd7hbxp5f@localhost/davidak_test_satzgenerator')#, echo=True) # debug
 
 metadata = MetaData(engine)
 
@@ -65,6 +56,9 @@ db_benutzer = Table('benutzer', metadata,
 
 # Tabellen erzeugen, falls sie nicht existieren
 metadata.create_all()
+
+# Zufallsgenerator initialisieren
+random.seed()
 
 def jetzt():
 	return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
