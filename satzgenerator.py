@@ -27,7 +27,7 @@ if config.get('general', 'database') == 'mysql':
 	password = config.get('mysql', 'password')
 	host = config.get('mysql', 'host')
 	database = config.get('mysql', 'database')
-	engine = create_engine('mysql+mysqlconnector://{}:{}@{}/{}'.format(user, password, host, database))
+	engine = create_engine('mysql+pymysql://{}:{}@{}/{}?charset=utf8'.format(user, password, host, database))
 elif config.get('general', 'database') == 'sqlite':
 	filename = config.get('sqlite', 'file')
 	engine = create_engine('sqlite:///' + filename)
@@ -220,21 +220,21 @@ def feedback():
 	try:
 		empfaenger = "post@davidak.de"
 		nachricht = request.forms.get('text') + "\n\n-----"
-	
+
 		if request.forms.get('current'):
 			nachricht += "\n\nSatz: " + request.forms.get('satz').encode("utf-8")
-	
+
 		nachricht += "\n\nGesendet von IP " + request.get('REMOTE_ADDR')
-	
+
 		msg = MIMEText(nachricht)
 		msg['Subject'] = "Feedback zum Satzgenerator (" + request.forms.get('art') + ")"
 		msg['From'] = request.forms.get('name') + '<' + request.forms.get('email') + '>'
 		msg['To'] = empfaenger
-	
+
 		s = smtplib.SMTP('localhost')
 		s.sendmail('system@satzgenerator.de', empfaenger, msg.as_string())
 		s.quit()
-	
+
 		return 'erfolgreich'
 	except:
 		return 'nicht erfolgreich'
