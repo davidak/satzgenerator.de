@@ -5,7 +5,7 @@ Der Quelltext von https://satzgenerator.de/.
 
 Es ist in [Python](https://www.python.org/) programmiert, benutzt das [Bottle](http://bottlepy.org/docs/stable/) Webframework, den [Gunicorn](http://docs.gunicorn.org/en/stable/index.html) WSGI HTTP-Server, den Datenbank ORM [SQLAlchemy](https://www.sqlalchemy.org/) mit [PyMySQL](https://pymysql.readthedocs.io/en/latest/) MySQL-Client sowie [PyZufall](http://pyzufall.readthedocs.org/de/latest/) zum generieren der zufälligen Sätze. Das Frontend ist mit [Bootstrap](http://getbootstrap.com/) und [jQuery](http://jquery.com/) gebaut.
 
-Generell wird auch [SQLite](https://www.sqlite.org/) unterstützt, z.B. für Testzwecke. Aktuell funktioniert es nicht. https://github.com/davidak/satzgenerator.de/issues/2
+Generell wird auch [SQLite](https://www.sqlite.org/) unterstützt, z.B. für Testzwecke. Aktuell funktioniert es nicht. [https://github.com/davidak/satzgenerator.de/issues/2](#2)
 
 Deployment
 ----------
