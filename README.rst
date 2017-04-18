@@ -12,9 +12,10 @@ Installation
 
 ::
 
-	./deploy.sh
+	pip install -r requirements.txt
 	cp config.ini.dist config.ini
 	vim config.ini
+	gunicorn -w 2 --bind='0.0.0.0:8081' satzgenerator:app
 
 Entwicklung
 -----------

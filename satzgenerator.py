@@ -295,6 +295,8 @@ def server_static(filepath):
 def error404(error):
     return template('404', titel="Satzgenerator: Fehler 404 - Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
 
+app = default_app()
+
 # allow running from the command line
 if __name__ == '__main__':
 	from bottle import run, debug

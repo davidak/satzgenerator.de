@@ -142,6 +142,21 @@ let
       };
     };
 
+
+
+    "gunicorn" = python.mkDerivation {
+      name = "gunicorn-19.7.1";
+      src = pkgs.fetchurl { url = "https://pypi.python.org/packages/30/3a/10bb213cede0cc4d13ac2263316c872a64bf4c819000c8ccd801f1d5f822/gunicorn-19.7.1.tar.gz"; sha256 = "eee1169f0ca667be05db3351a0960765620dad53f53434262ff8901b68a1b622"; };
+      doCheck = commonDoCheck;
+      buildInputs = commonBuildInputs;
+      propagatedBuildInputs = [ ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "";
+        license = licenses.mit;
+        description = "WSGI HTTP Server for UNIX";
+      };
+    };
+
   };
   overrides = import ./requirements_override.nix { inherit pkgs python; };
   commonOverrides = [
