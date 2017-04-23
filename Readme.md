@@ -17,6 +17,16 @@ vim config.ini
 gunicorn -w 2 --bind='0.0.0.0:8081' satzgenerator:app
 ```
 
+Cronjob einrichten
+------------------
+
+Ein Cronjob löscht jede Nacht Sätze aus der Datenbank, die weder bewertet noch geteilt wurden.
+
+```
+crontab -e
+20 4 * * * python /home/davidak/websites/satzgenerator/cron.py
+```
+
 Entwicklung
 -----------
 
