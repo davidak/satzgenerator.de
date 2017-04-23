@@ -35,7 +35,7 @@ Eine Entwicklungsumgebung, die alle Abhängigkeiten enthält, kann mit [Nix](htt
 Es kann der integrierte Webserver gestartet werden, um lokal zu entwickeln.
 
 ```
-$ nix-shell requirements.nix -A interpreter
+$ nix-shell -E 'with import <nixpkgs> { }; runCommand "dummy" { buildInputs = with python35Packages; [ bottle gunicorn sqlalchemy pymysql pyzufall ]; } ""'
 $ python satzgenerator.py
 Bottle v0.12.13 server starting up (using WSGIRefServer())...
 Listening on http://127.0.0.1:8081/
@@ -45,9 +45,3 @@ Hit Ctrl-C to quit.
 Bei Änderungen am Code wird er automatisch neu gestartet.
 
 Getestet wurde es mit Python 3.5.
-
-Die Entwicklungsumgebung wurde mit [pypi2nix](https://github.com/garbas/pypi2nix) erstellt.
-
-```
-pypi2nix -v -V "3.5" -r requirements.txt
-```
