@@ -25,7 +25,8 @@ app.config.setdefault('satzgenerator.database', '')
 # Konfiguration laden
 app.config.load_config('config.ini')
 
-debug = 0 # 0, 1
+if app.config['debug']:
+	from bottle import debug
 
 if app.config['satzgenerator.database'] == 'mysql':
 	user = app.config['satzgenerator.mysql.user']
@@ -37,7 +38,8 @@ elif app.config['satzgenerator.database'] == 'sqlite':
 	filename = app.config['satzgenerator.sqlite.file']
 	engine = create_engine('sqlite:///' + filename)
 else:
-	engine = create_engine('sqlite:///:memory:')
+	# temporary in-memory database
+	engine = create_engine('sqlite://')
 
 metadata = MetaData(engine)
 
@@ -75,45 +77,45 @@ def neuen_satz_speichern(satz):
 			engine.execute(db_satz.insert(), uid=uid, created=jetzt(), satz=satz)
 			return uid
 		except:
-			if debug: print('Fehler: Satz konnte nicht in die Datenbank gespeichert werden.')
-	if debug: print('Der Satz konnte auch beim 10. Versuch nicht in die Datenbank gespeichert werden. Das ist vermutlich ein Datenbank-Problem und es sollte der Administrator informiert werden.')
+			if app.config['debug']: print('Fehler: Satz konnte nicht in die Datenbank gespeichert werden.')
+	if app.config['debug']: print('Der Satz konnte auch beim 10. Versuch nicht in die Datenbank gespeichert werden. Das ist vermutlich ein Datenbank-Problem und es sollte der Administrator informiert werden.')
 
 def neuen_satz_generieren():
 	s = satz()
 	try:
 		satz_row = engine.execute(db_satz.select().where(db_satz.c.satz == s)).fetchone()
 		uid = satz_row.uid
-		if debug: print('Satz bereits in Datenbank mit uid ' + uid)
+		if app.config['debug']: print('Satz bereits in Datenbank mit uid ' + uid)
 		return uid
 	except: # ansonsten speichern
 		uid = neuen_satz_speichern(s)
-		if debug: print('Satz in Datenbank gespeichert mit uid ' + uid)
+		if app.config['debug']: print('Satz in Datenbank gespeichert mit uid ' + uid)
 		return uid
 
 def satz_positiv_bewerten(uid):
 	try:
 		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(pro = db_satz.c.pro + 1, tmp = False, updated=jetzt()))
 	except:
-		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
+		if app.config['debug']: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
 def satz_negativ_bewerten(uid):
 	try:
 		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(kontra = db_satz.c.kontra + 1, tmp = False, updated=jetzt()))
 	except:
-		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
+		if app.config['debug']: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
 def satz_permanent_speichern(uid):
 	try:
 		engine.execute(db_satz.update().where(db_satz.c.uid == uid).values(tmp = False, updated=jetzt()))
 	except:
-		if debug: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
+		if app.config['debug']: print('Fehler: Die Bewertung konnte nicht in der Datenbank gespeichert werden.')
 
 def bewertung_loggen(uid):
 	try:
 		ip = request.get('REMOTE_ADDR')
 		engine.execute(db_benutzer.insert(), uid=uid, ip=ip, voted=jetzt())
 	except:
-		if debug: print("Fehler: Bewertung konnte nicht geloggt werden.")
+		if app.config['debug']: print("Fehler: Bewertung konnte nicht geloggt werden.")
 
 def ist_berechtigt(uid):
 	try:
@@ -132,7 +134,7 @@ def temporaere_saetze_loeschen():
 	try:
 		engine.execute(db_satz.delete().where(db_satz.c.tmp == True))
 	except:
-		if debug: print('Fehler: Die temporären Sätze konnten nicht aus der Datenbank gelöscht werden.')
+		if app.config['debug']: print('Fehler: Die temporären Sätze konnten nicht aus der Datenbank gelöscht werden.')
 
 def log_aufraeumen():
 	try:
@@ -140,7 +142,7 @@ def log_aufraeumen():
 		gestern = gestern.strftime('%Y-%m-%d %H:%M:%S')
 		engine.execute(db_benutzer.delete().where(db_benutzer.c.voted < gestern))
 	except:
-		if debug: print("Fehler: Bewertungslog konnten nicht aufgeräumt werden.")
+		if app.config['debug']: print("Fehler: Bewertungslog konnten nicht aufgeräumt werden.")
 
 def cron():
 	temporaere_saetze_loeschen()
