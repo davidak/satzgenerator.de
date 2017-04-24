@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from bottle import route, template, static_file, error, request, response, redirect, default_app
+from bottle import TEMPLATE_PATH, route, template, static_file, error, request, response, redirect, default_app
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy import select, func
@@ -17,6 +17,9 @@ except:
 	import ConfigParser as configparser  # Python 2.7
 
 __version__ = '3.0'
+
+TEMPLATE_PATH.append("./satzgenerator/views/")
+TEMPLATE_PATH.remove("./views/")
 
 debug = 0 # 0, 1
 
