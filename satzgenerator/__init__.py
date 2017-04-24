@@ -296,7 +296,11 @@ def refirect_startseite():
 
 @route('/static/<filepath:path>')
 def server_static(filepath):
-    return static_file(filepath, root='./static/')
+    return static_file(filepath, root='./satzgenerator/static/')
+
+@route('/robots.txt')
+def robots():
+    return static_file('/robots.txt', root='./satzgenerator/static/')
 
 @error(404)
 def error404(error):
