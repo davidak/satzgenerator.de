@@ -1,13 +1,14 @@
-# uncomment needed options
+[bottle]
+debug = False
 
-[general]
+[satzgenerator]
 database=sqlite
 
-[sqlite]
+[satzgenerator.sqlite]
 file=satzgenerator.db
 
-#[mysql]
-#user=
-#password=
-#database=
-#host=
+[satzgenerator.mysql]
+user=satzgenerator
+password=********
+database=satzgenerator
+host=127.0.0.1
