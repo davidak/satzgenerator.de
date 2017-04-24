@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+__version__ = '3.0'
+
 from bottle import TEMPLATE_PATH, route, template, static_file, error, request, response, redirect, default_app
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey
@@ -11,33 +13,31 @@ from pyzufall.satz import satz
 from datetime import datetime, timedelta
 import random
 import sys
-try:
-	import configparser
-except:
-	import ConfigParser as configparser  # Python 2.7
-
-__version__ = '3.0'
 
 TEMPLATE_PATH.append("./satzgenerator/views/")
 TEMPLATE_PATH.remove("./views/")
 
-debug = 0 # 0, 1
+app = default_app()
+
+app.config.setdefault('debug', False)
+app.config.setdefault('satzgenerator.database', '')
 
 # Konfiguration laden
-config = configparser.ConfigParser()
-config.read('config.ini')
+app.config.load_config('config.ini')
 
-if config.get('general', 'database') == 'mysql':
-	user = config.get('mysql', 'user')
-	password = config.get('mysql', 'password')
-	host = config.get('mysql', 'host')
-	database = config.get('mysql', 'database')
+debug = 0 # 0, 1
+
+if app.config['satzgenerator.database'] == 'mysql':
+	user = app.config['satzgenerator.mysql.user']
+	password = app.config['satzgenerator.mysql.password']
+	host = app.config['satzgenerator.mysql.host']
+	database = app.config['satzgenerator.mysql.database']
 	engine = create_engine('mysql+pymysql://{}:{}@{}/{}?charset=utf8'.format(user, password, host, database))
-elif config.get('general', 'database') == 'sqlite':
-	filename = config.get('sqlite', 'file')
+elif app.config['satzgenerator.database'] == 'sqlite':
+	filename = app.config['satzgenerator.sqlite.file']
 	engine = create_engine('sqlite:///' + filename)
 else:
-	raise Exception('No Database configured!')
+	engine = create_engine('sqlite:///:memory:')
 
 metadata = MetaData(engine)
 
@@ -299,8 +299,6 @@ def server_static(filepath):
 @error(404)
 def error404(error):
     return template('404', titel="Satzgenerator: Fehler 404 - Seite nicht gefunden.", text="Hier gibt es nichts zu sehen.")
-
-app = default_app()
 
 # allow running from the command line
 if __name__ == '__main__':
