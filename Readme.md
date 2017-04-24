@@ -24,7 +24,7 @@ Ein Cronjob löscht jede Nacht Sätze aus der Datenbank, die weder bewertet noch
 
 ```
 crontab -e
-20 4 * * * python /home/davidak/websites/satzgenerator/cron.py
+20 4 * * * cd code/satzgenerator.de/; /usr/bin/python -c 'from satzgenerator import cron; cron()'
 ```
 
 Entwicklung
