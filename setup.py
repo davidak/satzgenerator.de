@@ -3,8 +3,10 @@
 
 from distutils.core import setup
 
+from satzgenerator import __version__
+
 setup(name='Satzgenerator',
-      version='3.0',
+      version=__version__,
       description='satzgenerator.de',
       author='davidak',
       author_email='post@davidak.de',

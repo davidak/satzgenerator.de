@@ -16,6 +16,8 @@ try:
 except:
 	import ConfigParser as configparser  # Python 2.7
 
+__version__ = '3.0'
+
 debug = 0 # 0, 1
 
 # Konfiguration laden
