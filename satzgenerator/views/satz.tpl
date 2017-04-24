@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 %include head titel=titel
-<link href="/style/satz.css" rel="stylesheet">
+<link href="/static/satz.css" rel="stylesheet">
 </head>
 <body>
 
@@ -59,8 +59,8 @@ Du darfst jeden Satz nur einmal in 24 Stunden bewerten.
 
 %include footer
 
-<script src="/style/Hyphenator.js"></script>
-<script src="/style/textFit.min.js"></script>
+<script src="/static/Hyphenator.js"></script>
+<script src="/static/textFit.min.js"></script>
 
 <script type="text/javascript">
 

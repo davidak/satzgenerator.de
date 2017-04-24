@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 %include head titel='Satzgenerator: ' + titel
-<link href="/style/rangliste.css" rel="stylesheet">
+<link href="/static/rangliste.css" rel="stylesheet">
 </head>
 <body>
 
@@ -29,10 +29,10 @@
 %if 'neusten' in titel:
 	% datum = satz.created.strftime('%d.%m.%Y')
 	% zeit = satz.created.strftime('%H:%M:%S')
-	<i class="fa fa-calendar"></i> {{datum}} 
-	<i class="fa fa-clock-o"></i> {{zeit}} 
+	<i class="fa fa-calendar"></i> {{datum}}
+	<i class="fa fa-clock-o"></i> {{zeit}}
 %end
-<i class="fa fa-thumbs-o-up"></i> {{str(satz.pro)}} 
+<i class="fa fa-thumbs-o-up"></i> {{str(satz.pro)}}
 <i class="fa fa-thumbs-o-down"></i> {{str(satz.kontra)}}
 </p>
 
@@ -45,7 +45,7 @@
 
 %include footer
 
-<script src="/style/Hyphenator.js"></script>
+<script src="/static/Hyphenator.js"></script>
 
 %include piwik_suche suchbegriff=suchbegriff, suchergebnisse=suchergebnisse
 

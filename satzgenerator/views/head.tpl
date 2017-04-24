@@ -6,9 +6,9 @@
 <meta name="author" content="davidak">
 <meta name="robots" content="index,follow">
 
-<link href="/style/bootstrap.min.css" rel="stylesheet">
+<link href="/static/bootstrap.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-<link href="/style/base.css" rel="stylesheet">
+<link href="/static/base.css" rel="stylesheet">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">

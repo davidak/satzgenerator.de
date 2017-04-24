@@ -294,9 +294,9 @@ def redirect_neuste():
 def refirect_startseite():
 	redirect('/', 301)
 
-@route('/style/<filepath:path>')
+@route('/static/<filepath:path>')
 def server_static(filepath):
-    return static_file(filepath, root='./style/')
+    return static_file(filepath, root='./static/')
 
 @error(404)
 def error404(error):
