@@ -35,9 +35,9 @@ Eine Entwicklungsumgebung, die alle Abhängigkeiten enthält, kann mit [Nix](htt
 Es kann der integrierte Webserver gestartet werden, um lokal zu entwickeln.
 
 ```
-$ nix-shell -p python35Packages.{bottle,gunicorn,sqlalchemy,pymysql,pyzufall}
-$ python satzgenerator.py
-Bottle v0.12.13 server starting up (using WSGIRefServer())...
+$ nix-shell -p python35Packages.{bottle,gunicorn,sqlalchemy,pymysql,pyzufall} sqlite
+$ python satzgenerator/__init__.py
+Bottle v0.12.11 server starting up (using WSGIRefServer())...
 Listening on http://127.0.0.1:8081/
 Hit Ctrl-C to quit.
 ```
