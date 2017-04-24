@@ -271,13 +271,13 @@ def suche(suchbegriff):
 @route('/beste-bewertung')
 def beste_bewertung():
 	anzahl = 50
-	satze = engine.execute(db_satz.select().where(db_satz.c.pro >= db_satz.c.kontra).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
+	satze = engine.execute(db_satz.select().where(db_satz.c.pro > db_satz.c.kontra).order_by(db_satz.c.pro.desc()).limit(anzahl)).fetchall()
 	return template('rangliste', titel="Die Sätze mit den besten Bewertungen", satze=satze)
 
 @route('/schlechte-bewertung')
 def schlechte_bewertung():
 	anzahl = 50
-	satze = engine.execute(db_satz.select().where(db_satz.c.kontra >= db_satz.c.pro).order_by(db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
+	satze = engine.execute(db_satz.select().where(db_satz.c.kontra > db_satz.c.pro).order_by(db_satz.c.kontra.desc()).limit(anzahl)).fetchall()
 	return template('rangliste', titel="Die Sätze mit den schlechtesten Bewertungen", satze=satze)
 
 @route('/neuste-saetze')
