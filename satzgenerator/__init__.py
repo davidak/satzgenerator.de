@@ -121,7 +121,7 @@ def bewertung_loggen(uid):
 def ist_berechtigt(uid):
 	try:
 		ip = request.get('REMOTE_ADDR')
-		log_row = engine.execute(db_benutzer.select().where((db_benutzer.c.uid == uid) & (db_benutzer.c.ip == ip))).fetchone()
+		log_row = engine.execute(db_benutzer.select().where((db_benutzer.c.uid == uid) & (db_benutzer.c.ip == ip)).order_by(db_benutzer.c.voted.desc()).limit(1)).fetchone()
 		zuletzt_bewertet = log_row.voted
 		differenz = datetime.now() - zuletzt_bewertet # vergangene Zeit seit der letzten Bewertung des Satzes
 		if differenz.days > 1: # länger als 24 Stunden
