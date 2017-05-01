@@ -2,7 +2,7 @@
   font-family: 'Gentium Book Basic';
   font-style: normal;
   font-weight: 400;
-  src: local('Gentium Book Basic'), local('GentiumBookBasic'), url(/style/GentiumBookBasic.woff) format('woff');
+  src: local('Gentium Book Basic'), local('GentiumBookBasic'), url(/static/GentiumBookBasic.woff) format('woff');
 }
 
 /* Extra small devices (phones, less than 768px) */
@@ -11,7 +11,7 @@ html, body {
  	height: 100%; /* The html and body elements cannot have any padding or margin. */
 }
 body {
-	background-image: url(/style/hintergrund.jpg);
+	background-image: url(/static/hintergrund.jpg);
 	background-repeat: repeat-x;
 	background-color: #F5F6F7;
 	padding-top: 70px; /* 70px to make the container go all the way to the bottom of the topbar */
