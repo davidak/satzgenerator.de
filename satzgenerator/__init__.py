@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__version__ = '3.1'
+__version__ = '3.1.1'
 
 from bottle import TEMPLATE_PATH, route, template, static_file, error, request, response, redirect, default_app
 from sqlalchemy import create_engine, MetaData
@@ -12,10 +12,11 @@ from email.mime.text import MIMEText
 from pyzufall.satz import satz
 from datetime import datetime, timedelta
 import random
+import os.path
 import sys
 
-TEMPLATE_PATH.append("./satzgenerator/views/")
-TEMPLATE_PATH.remove("./views/")
+basepath = os.path.dirname(__file__)
+TEMPLATE_PATH.insert(0,basepath + '/views/')
 
 app = default_app()
 
@@ -297,11 +298,11 @@ def refirect_startseite():
 
 @route('/static/<filepath:path>')
 def server_static(filepath):
-    return static_file(filepath, root='./satzgenerator/static/')
+    return static_file(filepath, root=basepath + '/static/')
 
 @route('/robots.txt')
 def robots():
-    return static_file('/robots.txt', root='./satzgenerator/static/')
+    return static_file('/robots.txt', root=basepath + '/static/')
 
 @error(404)
 def error404(error):
