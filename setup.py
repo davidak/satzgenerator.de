@@ -13,6 +13,6 @@ setup(name='Satzgenerator',
       url='https://satzgenerator.de',
       license='GPLv3',
       packages=['satzgenerator'],
-      package_data={'satzgenerator': ['views/*.tpl', 'style/*', 'style/patterns/*']},
+      package_data={'satzgenerator': ['views/*.tpl', 'static/*', 'static/patterns/*']},
       platforms='any',
      )
