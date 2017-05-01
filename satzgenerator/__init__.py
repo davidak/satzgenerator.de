@@ -32,8 +32,9 @@ if app.config['satzgenerator.database'] == 'mysql':
 	user = app.config['satzgenerator.mysql.user']
 	password = app.config['satzgenerator.mysql.password']
 	host = app.config['satzgenerator.mysql.host']
+	port = app.config.get('satzgenerator.mysql.port', '3306')
 	database = app.config['satzgenerator.mysql.database']
-	engine = create_engine('mysql+pymysql://{}:{}@{}/{}?charset=utf8'.format(user, password, host, database))
+	engine = create_engine('mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(user, password, host, port, database))
 elif app.config['satzgenerator.database'] == 'sqlite':
 	filename = app.config['satzgenerator.sqlite.file']
 	engine = create_engine('sqlite:///' + filename)
