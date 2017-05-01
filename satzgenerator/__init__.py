@@ -243,7 +243,7 @@ def feedback():
 		msg['To'] = empfaenger
 
 		s = smtplib.SMTP('localhost')
-		s.sendmail('system@satzgenerator.de', empfaenger, msg.as_string())
+		s.sendmail('satzgenerator@atomic.davidak.de', empfaenger, msg.as_string())
 		s.quit()
 
 		return 'erfolgreich'
