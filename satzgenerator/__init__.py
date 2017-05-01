@@ -114,14 +114,14 @@ def satz_permanent_speichern(uid):
 
 def bewertung_loggen(uid):
 	try:
-		ip = request.get('REMOTE_ADDR')
+		ip = request.environ.get('HTTP_X_FORWARDED_FOR') or request.environ.get('REMOTE_ADDR')
 		engine.execute(db_benutzer.insert(), uid=uid, ip=ip, voted=jetzt())
 	except:
 		if app.config['debug']: print("Fehler: Bewertung konnte nicht geloggt werden.")
 
 def ist_berechtigt(uid):
 	try:
-		ip = request.get('REMOTE_ADDR')
+		ip = request.environ.get('HTTP_X_FORWARDED_FOR') or request.environ.get('REMOTE_ADDR')
 		log_row = engine.execute(db_benutzer.select().where((db_benutzer.c.uid == uid) & (db_benutzer.c.ip == ip)).order_by(db_benutzer.c.voted.desc()).limit(1)).fetchone()
 		zuletzt_bewertet = log_row.voted
 		differenz = datetime.now() - zuletzt_bewertet # vergangene Zeit seit der letzten Bewertung des Satzes
@@ -227,13 +227,15 @@ def satz_bewerten(uid):
 @route('/feedback', method='POST')
 def feedback():
 	try:
+		remote_ip = request.environ.get('HTTP_X_FORWARDED_FOR') or request.environ.get('REMOTE_ADDR')
+
 		empfaenger = "post@davidak.de"
 		nachricht = request.forms.get('text') + "\n\n-----"
 
 		if request.forms.get('current'):
 			nachricht += "\n\nSatz: " + request.forms.get('satz').encode("utf-8")
 
-		nachricht += "\n\nGesendet von IP " + request.get('REMOTE_ADDR')
+		nachricht += "\n\nGesendet von IP " + remote_ip
 
 		msg = MIMEText(nachricht)
 		msg['Subject'] = "Feedback zum Satzgenerator (" + request.forms.get('art') + ")"
