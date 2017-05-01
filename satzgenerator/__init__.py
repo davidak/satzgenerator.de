@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__version__ = '3.1.1'
+__version__ = '3.1.2'
 
 from bottle import TEMPLATE_PATH, route, template, static_file, error, request, response, redirect, default_app
 from sqlalchemy import create_engine, MetaData
